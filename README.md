@@ -1,14 +1,14 @@
 # graffiticode.org (`www`)
 
-The canonical agent-engagement site for Graffiticode. Rebuilt from scratch to be a **projection of the
-live MCP server**, not hand-written prose that drifts from it.
+The canonical agent-engagement site for Graffiticode — a **projection of the live MCP server**.
 
 ## Why this exists
 
-The previous site told agents to send `Authorization: Bearer YOUR_TRIAL_TOKEN` (a scheme that was never
-built — the shipped model is free-plan / no credential), linked 8× to a `/languages/[id]` route that
-didn't exist, advertised a 404ing OpenAPI URL, and contradicted itself on the language list. An agent
-following the canonical "For Agents" page failed its first call. This rebuild fixes that by construction.
+This is where an AI agent — or the developer behind it — lands to discover Graffiticode, connect to the
+MCP server, and make a first successful call. It leads with a working artifact, a correct no-credential
+quickstart, a tool catalog generated from the real language registry, and machine-readable discovery
+surfaces (`llms.txt`, `.well-known/mcp.json`) that stay in lockstep with what the server actually
+exposes. Everything an agent reads here is something it can act on and get back a real result.
 
 ## Design principles (enforced, not aspirational)
 

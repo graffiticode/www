@@ -1,0 +1,63 @@
+{
+  "mcp_endpoint": "https://mcp.graffiticode.org/mcp",
+  "site": "https://graffiticode.org",
+  "description": "Graffiticode is a universal MCP server of smart tools for AI agents and the people who use them. Each tool is one domain language wrapped by a specialized AI. No credential is required to try it — call the endpoint with no Authorization header (free plan).",
+  "tools": [
+    "list_languages",
+    "get_language_info",
+    "create_item",
+    "update_item",
+    "get_item"
+  ],
+  "free_plan": {
+    "credential_required": false,
+    "session_header": "X-Free-Plan-Session",
+    "item_ttl_hours": 48,
+    "claim": "Follow the claim_url returned by create_item / update_item to save items permanently."
+  },
+  "console_url": "https://console.graffiticode.org",
+  "forum_url": "https://forum.graffiticode.org",
+  "github_url": "https://github.com/graffiticode",
+  "languages": [
+    {
+      "id": "L0152",
+      "name": "Interactive Map",
+      "spec_url": "https://graffiticode.org/languages/L0152"
+    },
+    {
+      "id": "L0153",
+      "name": "Area Model",
+      "spec_url": "https://graffiticode.org/languages/L0153"
+    },
+    {
+      "id": "L0154",
+      "name": "Magic Square",
+      "spec_url": "https://graffiticode.org/languages/L0154"
+    },
+    {
+      "id": "L0157",
+      "name": "Geoboard",
+      "spec_url": "https://graffiticode.org/languages/L0157"
+    },
+    {
+      "id": "L0158",
+      "name": "Learnosity Item",
+      "spec_url": "https://graffiticode.org/languages/L0158"
+    },
+    {
+      "id": "L0159",
+      "name": "Flashcards",
+      "spec_url": "https://graffiticode.org/languages/L0159"
+    },
+    {
+      "id": "L0166",
+      "name": "Spreadsheet",
+      "spec_url": "https://graffiticode.org/languages/L0166"
+    },
+    {
+      "id": "L0169",
+      "name": "Concept Web",
+      "spec_url": "https://graffiticode.org/languages/L0169"
+    }
+  ]
+}

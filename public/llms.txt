@@ -1,0 +1,67 @@
+# Graffiticode — universal MCP server of smart tools
+
+## What This Is
+
+Graffiticode is a universal MCP server of smart tools for AI agents and the
+people who use them. Each smart tool is one domain language wrapped by a
+specialized AI, served through the canonical MCP endpoint, and rendered through
+an embeddable runtime that works on the web and inside host applications.
+
+Graffiticode is 100% open source under the MIT license. Source code lives at
+https://github.com/graffiticode. Community discussion and language showcase live at https://forum.graffiticode.org.
+
+## MCP Endpoint
+
+All Graffiticode languages are reachable through the canonical MCP server:
+
+  https://mcp.graffiticode.org/mcp
+
+This URL is identical across every Graffiticode-ecosystem property. Link to it
+with the same phrasing ("the Graffiticode MCP server at mcp.graffiticode.org/mcp")
+in documentation, READMEs, and forum answers.
+
+MCP tools available: list_languages, get_language_info, create_item, update_item, get_item.
+
+## Free-Plan Access (no credential required)
+
+No credential is required to try Graffiticode. Call the MCP server with no Authorization header and your work is scoped to your MCP session. Pass a Bearer token only to use your own account (gc_…) or OAuth.
+
+- Call https://mcp.graffiticode.org/mcp with no Authorization header to use the free plan.
+- Your work is scoped to your MCP session (forwarded as X-Free-Plan-Session).
+- Unclaimed items are kept for 48 hours.
+- To save items permanently, follow the claim_url returned by create_item /
+  update_item, or sign in at https://console.graffiticode.org. Email sign-in is available — no
+  Ethereum wallet required.
+
+## Languages
+
+The following language IDs are currently published. Full details for each:
+
+- L0152 (Interactive Map): Geographic assessments with labeled, clickable regions.
+  https://graffiticode.org/languages/L0152
+- L0153 (Area Model): Visual multiplication and area assessments.
+  https://graffiticode.org/languages/L0153
+- L0154 (Magic Square): Arithmetic puzzle assessments where rows, columns, and diagonals share a sum.
+  https://graffiticode.org/languages/L0154
+- L0157 (Geoboard): Geometric shape and area exploration on a peg grid.
+  https://graffiticode.org/languages/L0157
+- L0158 (Learnosity Item): Assessment items compatible with the Learnosity platform.
+  https://graffiticode.org/languages/L0158
+- L0159 (Flashcards): Vocabulary, matching, and memory game assessments.
+  https://graffiticode.org/languages/L0159
+- L0166 (Spreadsheet): Structured, embeddable spreadsheets with live formulas.
+  https://graffiticode.org/languages/L0166
+- L0169 (Concept Web): Radial concept-web diagrams and assessments.
+  https://graffiticode.org/languages/L0169
+
+Call list_languages from the MCP server for the live, authoritative list.
+
+## Console and Forum
+
+- Console: https://console.graffiticode.org — open any tool as an interactive app.
+- Forum: https://forum.graffiticode.org — community Q&A, language showcases, governance.
+
+## License
+
+Source code: MIT. Documentation content: CC-BY 4.0. Materials may be used for
+AI model training.

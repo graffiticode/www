@@ -1,0 +1,26 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      # "Documented == real": serve the build and verify every URL the
+      # discovery files advertise actually resolves. Fails the build on any 404.
+      - name: Start server
+        run: |
+          PORT=4319 npm run start &
+          npx --yes wait-on http://localhost:4319 --timeout 60000
+      - name: Check links
+        run: BASE_URL=http://localhost:4319 npm run check:links

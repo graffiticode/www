@@ -1,0 +1,37 @@
+{
+  "name": "graffiticode-www",
+  "version": "0.1.0",
+  "private": true,
+  "description": "graffiticode.org — the canonical agent-engagement site. A projection of the live MCP server.",
+  "scripts": {
+    "prebuild": "tsx scripts/generate-discovery.ts",
+    "dev": "tsx scripts/generate-discovery.ts && next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "generate": "tsx scripts/generate-discovery.ts",
+    "sync:languages": "tsx scripts/sync-languages.ts",
+    "check:links": "tsx scripts/check-links.ts",
+    "verify": "npm run generate && npm run check:links",
+    "gcp:build": "gcloud builds submit --config cloudbuild.yaml --project artcompiler-marketing --substitutions=COMMIT_SHA=$(git rev-parse --short HEAD 2>/dev/null || echo 'latest')",
+    "gcp:deploy": "gcloud run deploy www --source . --region us-central1 --platform managed --allow-unauthenticated --project artcompiler-marketing",
+    "gcp:logs": "gcloud run logs read www --region us-central1 --project artcompiler-marketing"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "next": "^15",
+    "react": "^19",
+    "react-dom": "^19"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.15",
+    "@types/node": "^24.1.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9.32.0",
+    "eslint-config-next": "^15",
+    "tailwindcss": "^4.1.15",
+    "tsx": "^4.19.2",
+    "typescript": "^5.8.3"
+  }
+}

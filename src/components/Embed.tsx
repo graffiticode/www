@@ -22,7 +22,7 @@ export function Embed({
     return (
       <div
         className={
-          'flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-white/15 bg-zinc-900/50 text-center text-sm text-zinc-500 ' +
+          'flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-white/15 bg-zinc-900/50 text-center text-sm text-sand-500 ' +
           (className ?? '')
         }
         style={{ minHeight: height }}
@@ -43,9 +43,9 @@ export function Embed({
         style={{ height }}
         sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
       />
-      <figcaption className="flex items-center justify-between border-t border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs text-zinc-600">
+      <figcaption className="flex items-center justify-between border-t border-brand-cream bg-brand-cream/60 px-3 py-1.5 text-xs text-brand-maroon">
         <span>{title}</span>
-        <Link href={viewUrl(itemId)} target="_blank" className="font-medium text-emerald-700 hover:underline">
+        <Link href={viewUrl(itemId)} target="_blank" className="font-medium text-brand-deep hover:underline">
           Open ↗
         </Link>
       </figcaption>

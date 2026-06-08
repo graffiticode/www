@@ -5,6 +5,21 @@
 @theme {
   --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-mono: ui-monospace, 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', monospace;
+
+  /* Graffiticode brand palette, sampled from the citrus-wheel logo. */
+  --color-brand: #bd5e48; /* terracotta */
+  --color-brand-deep: #a52523; /* brick red — solid CTAs */
+  --color-brand-maroon: #7a2828; /* wordmark */
+  --color-brand-clay: #cf8b74; /* light clay — accent text/links on dark */
+  --color-brand-cream: #ece0da;
+
+  /* Warm neutral "sand" scale (terracotta-tinted) — used for all body text
+     instead of cold zinc, so the type sits in the brand family. */
+  --color-sand-50: #f6efeb; /* warm white — headings */
+  --color-sand-100: #ece0da; /* primary body */
+  --color-sand-300: #cdbab1; /* secondary */
+  --color-sand-400: #ac968c; /* muted */
+  --color-sand-500: #8a746b; /* faint labels */
 }
 
 :root {
@@ -16,7 +31,7 @@ html {
 }
 
 body {
-  @apply bg-zinc-950 text-zinc-100 antialiased;
+  @apply bg-zinc-950 text-sand-100 antialiased;
 }
 
 /* Subtle grid backdrop for hero sections */

@@ -13,12 +13,15 @@ export function Embed({
   title,
   className,
   ratio = '3 / 2',
+  scale = 1,
 }: {
   itemId: string | null
   title: string
   className?: string
   /** CSS aspect-ratio for the frame, e.g. '3 / 2' (default) or '16 / 9'. */
   ratio?: string
+  /** Zoom the embedded content, e.g. 0.75 to render the form at 75%. */
+  scale?: number
 }) {
   if (!itemId) {
     return (
@@ -37,12 +40,22 @@ export function Embed({
 
   return (
     <figure className={'overflow-hidden rounded-xl border border-white/10 bg-white ' + (className ?? '')}>
-      <div style={{ aspectRatio: ratio }} className="w-full">
+      <div style={{ aspectRatio: ratio }} className="w-full overflow-hidden">
         <iframe
           src={viewUrl(itemId)}
           title={title}
           loading="lazy"
           className="h-full w-full"
+          style={
+            scale !== 1
+              ? {
+                  width: `${100 / scale}%`,
+                  height: `${100 / scale}%`,
+                  transform: `scale(${scale})`,
+                  transformOrigin: 'top left',
+                }
+              : undefined
+          }
           sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
         />
       </div>

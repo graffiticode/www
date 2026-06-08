@@ -77,7 +77,7 @@ export default function HomePage() {
           </div>
 
           <div>
-            <Embed itemId={featured.showcaseItemId} title={`${featured.name} — made with one MCP call`} />
+            <Embed itemId={featured.showcaseItemId} title={`${featured.name} — made with one MCP call`} scale={featured.embedScale ?? 1} />
             <p className="mt-3 text-center text-sm text-sand-400">
               An agent made this with one call.{' '}
               <Link href="/agents" className="font-medium text-brand-clay hover:underline">

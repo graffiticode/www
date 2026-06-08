@@ -47,7 +47,7 @@ export default async function LanguagePage({ params }: { params: Promise<{ id: s
       <div className="mt-8 grid gap-8 lg:grid-cols-2 lg:items-start">
         <div>
           <h2 className="text-sm font-medium text-sand-400">Live example</h2>
-          <Embed className="mt-2" itemId={lang.showcaseItemId} title={`${lang.name} (${lang.id})`} />
+          <Embed className="mt-2" itemId={lang.showcaseItemId} title={`${lang.name} (${lang.id})`} scale={lang.embedScale ?? 1} />
         </div>
 
         <div>

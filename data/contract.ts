@@ -20,6 +20,8 @@ export interface Language {
   itemTypes: string[]
   /** A real item created via the MCP server, embedded as living proof. */
   showcaseItemId: string | null
+  /** Optional zoom for the embedded item (e.g. 0.75 to render at 75%). Defaults to 1. */
+  embedScale?: number
 }
 
 export interface McpTool {

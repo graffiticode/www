@@ -53,6 +53,8 @@ The following language IDs are currently published. Full details for each:
   https://graffiticode.org/languages/L0166
 - L0169 (Concept Web): Radial concept-web diagrams and assessments.
   https://graffiticode.org/languages/L0169
+- L0173 (Charts): Declarative charts compiled to Apache ECharts — bar, line, pie, donut, and more.
+  https://graffiticode.org/languages/L0173
 
 Call list_languages from the MCP server for the live, authoritative list.
 

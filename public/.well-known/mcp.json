@@ -58,6 +58,11 @@
       "id": "L0169",
       "name": "Concept Web",
       "spec_url": "https://graffiticode.org/languages/L0169"
+    },
+    {
+      "id": "L0173",
+      "name": "Charts",
+      "spec_url": "https://graffiticode.org/languages/L0173"
     }
   ]
 }

@@ -6,13 +6,13 @@ steps:
       - |
         docker build \
           --build-arg SITE_URL="${_SITE_URL}" \
-          -t gcr.io/artcompiler-marketing/www:$COMMIT_SHA \
+          -t gcr.io/graffiticode-app/www:$COMMIT_SHA \
           .
 
   - name: gcr.io/cloud-builders/docker
     args:
       - push
-      - 'gcr.io/artcompiler-marketing/www:$COMMIT_SHA'
+      - 'gcr.io/graffiticode-app/www:$COMMIT_SHA'
     id: Push
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:slim'
@@ -21,7 +21,7 @@ steps:
       - deploy
       - www
       - '--platform=managed'
-      - '--image=gcr.io/artcompiler-marketing/www:$COMMIT_SHA'
+      - '--image=gcr.io/graffiticode-app/www:$COMMIT_SHA'
       - '--labels=commit-sha=$COMMIT_SHA,gcb-build-id=$BUILD_ID'
       - '--region=$_DEPLOY_REGION'
       - '--quiet'
@@ -30,7 +30,7 @@ steps:
     entrypoint: gcloud
 
 images:
-  - 'gcr.io/artcompiler-marketing/www:$COMMIT_SHA'
+  - 'gcr.io/graffiticode-app/www:$COMMIT_SHA'
 
 options:
   substitutionOption: ALLOW_LOOSE

@@ -13,9 +13,9 @@
     "sync:languages": "tsx scripts/sync-languages.ts",
     "check:links": "tsx scripts/check-links.ts",
     "verify": "npm run generate && npm run check:links",
-    "gcp:build": "gcloud builds submit --config cloudbuild.yaml --project artcompiler-marketing --substitutions=COMMIT_SHA=$(git rev-parse --short HEAD 2>/dev/null || echo 'latest')",
-    "gcp:deploy": "gcloud run deploy www --source . --region us-central1 --platform managed --allow-unauthenticated --project artcompiler-marketing",
-    "gcp:logs": "gcloud run logs read www --region us-central1 --project artcompiler-marketing"
+    "gcp:build": "gcloud builds submit --config cloudbuild.yaml --project graffiticode-app --substitutions=COMMIT_SHA=$(git rev-parse --short HEAD 2>/dev/null || echo 'latest')",
+    "gcp:deploy": "gcloud run deploy www --source . --region us-central1 --platform managed --allow-unauthenticated --project graffiticode-app",
+    "gcp:logs": "gcloud run logs read www --region us-central1 --project graffiticode-app"
   },
   "dependencies": {
     "clsx": "^2.1.1",

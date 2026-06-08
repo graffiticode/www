@@ -52,7 +52,7 @@ Cloud Run, mirroring the existing site's setup but as a separate `www` service (
 graffiticode.org DNS):
 
 ```bash
-npm run gcp:build    # Cloud Build (Docker) → gcr.io/artcompiler-marketing/www
+npm run gcp:build    # Cloud Build (Docker) → gcr.io/graffiticode-app/www
 npm run gcp:deploy   # deploy to Cloud Run service `www` (us-central1)
 ```
 

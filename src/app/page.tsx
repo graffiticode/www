@@ -4,6 +4,7 @@ import { Container } from '@/components/Container'
 import { Button } from '@/components/Button'
 import { CodeBlock } from '@/components/CodeBlock'
 import { Embed } from '@/components/Embed'
+import { PromptDialog } from '@/components/PromptDialog'
 import { LANGUAGES, SHOWCASE, MCP_ENDPOINT, FREE_PLAN } from '@data/contract'
 
 // Feature the charts tool in the hero when it has a live item; otherwise the first showcase.
@@ -80,6 +81,8 @@ export default function HomePage() {
             <Embed itemId={featured.showcaseItemId} title={`${featured.name} — made with one MCP call`} scale={featured.embedScale ?? 1} />
             <p className="mt-3 text-center text-sm text-sand-400">
               An agent made this with one call.{' '}
+              <PromptDialog language={featured.id} prompt={featured.examplePrompt} />
+              {' · '}
               <Link href="/agents" className="font-medium text-brand-clay hover:underline">
                 Make your own →
               </Link>

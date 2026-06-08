@@ -46,7 +46,7 @@
     "examplePrompt": "A set of flashcards matching five Spanish color words to their English meanings, playable as a memory game.",
     "itemTypes": ["assessment", "flashcards", "match", "memory"],
     "showcaseItemId": "gcq5EFzOVe02Cjj7sVM4",
-    "embedScale": 0.75
+    "embedScale": 0.7
   },
   {
     "id": "L0166",

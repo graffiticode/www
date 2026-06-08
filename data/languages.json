@@ -45,7 +45,7 @@
     "blurb": "Vocabulary, matching, and memory game assessments.",
     "examplePrompt": "A set of flashcards matching five Spanish color words to their English meanings, playable as a memory game.",
     "itemTypes": ["assessment", "flashcards", "match", "memory"],
-    "showcaseItemId": null
+    "showcaseItemId": "EIeJGsNTJPHpEUL2IG5T"
   },
   {
     "id": "L0166",
@@ -53,7 +53,7 @@
     "blurb": "Structured, embeddable spreadsheets with live formulas.",
     "examplePrompt": "A monthly budget spreadsheet with labeled income and expense rows, a SUM total, and a remaining-balance cell that updates live.",
     "itemTypes": ["spreadsheet", "assessment_spreadsheet", "parameterized_spreadsheet"],
-    "showcaseItemId": null
+    "showcaseItemId": "XQa24BMTBXIhxEEopx9f"
   },
   {
     "id": "L0169",
@@ -61,6 +61,6 @@
     "blurb": "Radial concept-web diagrams and assessments.",
     "examplePrompt": "A concept web about photosynthesis: 'Light Reactions' at the center, connected to Calvin Cycle, Chlorophyll, and ATP Production. Dark theme.",
     "itemTypes": ["assessment", "concept_web", "diagram"],
-    "showcaseItemId": null
+    "showcaseItemId": "gcq5EFzOVe02Cjj7sVM4"
   }
 ]

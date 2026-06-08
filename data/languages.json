@@ -71,6 +71,7 @@
     "blurb": "Declarative charts compiled to Apache ECharts — bar, line, pie, donut, and more.",
     "examplePrompt": "A combo chart titled 'Quarterly Revenue & Growth' with eight quarters on the x-axis (Q1–Q4 2024, then Q1–Q4 2025). Revenue as vertical bars (thousands): 120, 150, 170, 210, 240, 230, 290, 340. A smooth line on a secondary y-axis shows quarter-over-quarter growth percent: 0, 25, 13, 24, 14, -4, 26, 17. Label the left axis 'Revenue ($K)' and the right axis 'Growth (%)'. Include a legend, value labels on the bars, light gridlines, and a clean modern theme.",
     "itemTypes": ["chart"],
-    "showcaseItemId": "ndm0l0FWTECvtf1yy1Uv"
+    "showcaseItemId": "ndm0l0FWTECvtf1yy1Uv",
+    "embedScale": 0.75
   }
 ]

@@ -4,19 +4,21 @@ import { viewUrl } from '@data/contract'
 
 /**
  * A live, interactive Graffiticode item — real proof, not a screenshot.
- * Renders the hosted item in an iframe. When no showcase id is set yet, shows a
- * labelled placeholder so the page is honest about what's wired vs pending.
+ * Renders the hosted item in an iframe at a landscape aspect ratio (most items
+ * are wider than 1:1). When no showcase id is set yet, shows a labelled
+ * placeholder so the page is honest about what's wired vs pending.
  */
 export function Embed({
   itemId,
   title,
   className,
-  height = 420,
+  ratio = '3 / 2',
 }: {
   itemId: string | null
   title: string
   className?: string
-  height?: number
+  /** CSS aspect-ratio for the frame, e.g. '3 / 2' (default) or '16 / 9'. */
+  ratio?: string
 }) {
   if (!itemId) {
     return (
@@ -25,7 +27,7 @@ export function Embed({
           'flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-white/15 bg-zinc-900/50 text-center text-sm text-sand-500 ' +
           (className ?? '')
         }
-        style={{ minHeight: height }}
+        style={{ aspectRatio: ratio }}
       >
         <span>Live example coming online</span>
         <span className="text-xs">{title}</span>
@@ -35,14 +37,15 @@ export function Embed({
 
   return (
     <figure className={'overflow-hidden rounded-xl border border-white/10 bg-white ' + (className ?? '')}>
-      <iframe
-        src={viewUrl(itemId)}
-        title={title}
-        loading="lazy"
-        className="w-full"
-        style={{ height }}
-        sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-      />
+      <div style={{ aspectRatio: ratio }} className="w-full">
+        <iframe
+          src={viewUrl(itemId)}
+          title={title}
+          loading="lazy"
+          className="h-full w-full"
+          sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+        />
+      </div>
       <figcaption className="flex items-center justify-between border-t border-brand-cream bg-brand-cream/60 px-3 py-1.5 text-xs text-brand-maroon">
         <span>{title}</span>
         <Link href={viewUrl(itemId)} target="_blank" className="font-medium text-brand-deep hover:underline">

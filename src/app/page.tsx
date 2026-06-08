@@ -61,7 +61,7 @@ export default function HomePage() {
               Universal MCP server of smart tools
             </p>
             <h1 className="text-4xl font-semibold tracking-tight text-sand-50 sm:text-5xl">
-              Point your agent at one endpoint — no key required — and ask for a spreadsheet.
+              Point your agent at one endpoint — no key required — and ask for a chart.
             </h1>
             <p className="mt-5 max-w-xl text-lg text-sand-300">
               Each Graffiticode tool is a domain language wrapped by a specialized AI that knows the

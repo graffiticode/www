@@ -6,9 +6,9 @@ import { CodeBlock } from '@/components/CodeBlock'
 import { Embed } from '@/components/Embed'
 import { LANGUAGES, SHOWCASE, MCP_ENDPOINT, FREE_PLAN } from '@data/contract'
 
-// Feature the concept web when it has a live item; otherwise the first showcase.
-const preferred = LANGUAGES.find((l) => l.id === 'L0169' && l.showcaseItemId)
-const featured = preferred ?? SHOWCASE[0] ?? LANGUAGES.find((l) => l.id === 'L0169') ?? LANGUAGES[0]
+// Feature the charts tool in the hero when it has a live item; otherwise the first showcase.
+const preferred = LANGUAGES.find((l) => l.id === 'L0173' && l.showcaseItemId)
+const featured = preferred ?? SHOWCASE[0] ?? LANGUAGES[0]
 
 const heroCall = `create_item({
   language: "${featured.id}",

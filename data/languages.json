@@ -45,7 +45,7 @@
     "blurb": "Vocabulary, matching, and memory game assessments.",
     "examplePrompt": "A set of flashcards matching five Spanish color words to their English meanings, playable as a memory game.",
     "itemTypes": ["assessment", "flashcards", "match", "memory"],
-    "showcaseItemId": "EIeJGsNTJPHpEUL2IG5T"
+    "showcaseItemId": "gcq5EFzOVe02Cjj7sVM4"
   },
   {
     "id": "L0166",
@@ -61,6 +61,14 @@
     "blurb": "Radial concept-web diagrams and assessments.",
     "examplePrompt": "A concept web about photosynthesis: 'Light Reactions' at the center, connected to Calvin Cycle, Chlorophyll, and ATP Production. Dark theme.",
     "itemTypes": ["assessment", "concept_web", "diagram"],
-    "showcaseItemId": "gcq5EFzOVe02Cjj7sVM4"
+    "showcaseItemId": null
+  },
+  {
+    "id": "L0173",
+    "name": "Charts",
+    "blurb": "Declarative charts compiled to Apache ECharts — bar, line, pie, donut, and more.",
+    "examplePrompt": "A bar chart of quarterly revenue — Q1 120, Q2 150, Q3 170, Q4 210 — with labeled axes and a clean dark theme.",
+    "itemTypes": ["chart"],
+    "showcaseItemId": "EIeJGsNTJPHpEUL2IG5T"
   }
 ]

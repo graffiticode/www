@@ -60,6 +60,16 @@
       "spec_url": "https://graffiticode.org/languages/L0169"
     },
     {
+      "id": "L0170",
+      "name": "Data Pipeline",
+      "spec_url": "https://graffiticode.org/languages/L0170"
+    },
+    {
+      "id": "L0172",
+      "name": "FigJam Board",
+      "spec_url": "https://graffiticode.org/languages/L0172"
+    },
+    {
       "id": "L0173",
       "name": "Charts",
       "spec_url": "https://graffiticode.org/languages/L0173"

@@ -66,6 +66,22 @@
     "showcaseItemId": null
   },
   {
+    "id": "L0170",
+    "name": "Data Pipeline",
+    "blurb": "Fetch JSON or CSV from the web and reshape it with a filter, group, join, and sort pipeline.",
+    "examplePrompt": "Group this data by department, count the rows, and compute the average salary rounded to 2 decimals. Sort by count descending. Take the top 5 departments.",
+    "itemTypes": ["data_pipeline"],
+    "showcaseItemId": null
+  },
+  {
+    "id": "L0172",
+    "name": "FigJam Board",
+    "blurb": "FigJam board content — sticky notes, shapes, connectors, and sections, placed by coordinates.",
+    "examplePrompt": "A retrospective board with three sections in a row — 'Went Well' with green stickies, 'To Improve' with yellow stickies, and 'Action Items' with blue stickies.",
+    "itemTypes": ["figjam_board"],
+    "showcaseItemId": null
+  },
+  {
     "id": "L0173",
     "name": "Charts",
     "blurb": "Declarative charts compiled to Apache ECharts — bar, line, pie, donut, and more.",

@@ -21,10 +21,8 @@ export function PromptDialog({
 }) {
   const ref = useRef<HTMLDialogElement>(null)
 
-  const call = `create_item({
-  language: "${language}",
-  description: "${prompt}"
-})`
+  const call = `language: ${language}
+prompt: ${prompt}`
 
   function open() {
     track('show_prompt', { language })
@@ -56,9 +54,10 @@ export function PromptDialog({
               ✕
             </button>
           </div>
-          <CodeBlock label="create_item" language="javascript" code={call} />
+          <CodeBlock label="prompt" language="text" code={call} />
           <p className="mt-3 text-xs text-sand-400">
-            No credential required — call the MCP server with this and open the returned{' '}
+            No credential required — pass this prompt to the MCP server&rsquo;s{' '}
+            <code className="font-mono">create_item</code> and open the returned{' '}
             <code className="font-mono">view_url</code>.
           </p>
         </div>

@@ -41,7 +41,7 @@ export function PromptDialog({
         }}
         className="m-auto w-[min(92vw,40rem)] rounded-xl border border-white/10 bg-zinc-900 p-0 text-sand-100 backdrop:bg-black/70"
       >
-        <div className="p-5">
+        <div className="p-5 text-left">
           <div className="mb-3 flex items-center justify-between">
             <h2 className="text-sm font-semibold text-sand-50">
               The prompt that made this <span className="font-mono text-brand-clay">{language}</span> artifact

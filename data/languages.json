@@ -1,52 +1,11 @@
 [
   {
-    "id": "L0152",
-    "name": "Interactive Map",
-    "blurb": "Geographic assessments with labeled, clickable regions.",
-    "examplePrompt": "An interactive map of South America where the student clicks the country that contains the Amazon rainforest. Highlight the correct answer in green.",
-    "itemTypes": ["assessment", "map"],
-    "showcaseItemId": null
-  },
-  {
-    "id": "L0153",
-    "name": "Area Model",
-    "blurb": "Visual multiplication and area assessments.",
-    "examplePrompt": "An area model showing 23 × 14 split into partial products, with the student filling in each region.",
-    "itemTypes": ["assessment", "area_model"],
-    "showcaseItemId": null
-  },
-  {
-    "id": "L0154",
-    "name": "Magic Square",
-    "blurb": "Arithmetic puzzle assessments where rows, columns, and diagonals share a sum.",
-    "examplePrompt": "A 3×3 magic square with a target sum of 15, three cells pre-filled, and the student completing the rest.",
-    "itemTypes": ["assessment", "puzzle"],
-    "showcaseItemId": null
-  },
-  {
-    "id": "L0157",
-    "name": "Geoboard",
-    "blurb": "Geometric shape and area exploration on a peg grid.",
-    "examplePrompt": "A geoboard where the student stretches a band to make a triangle with an area of 6 square units.",
-    "itemTypes": ["assessment", "geometry"],
-    "showcaseItemId": null
-  },
-  {
     "id": "L0158",
     "name": "Learnosity Item",
     "blurb": "Assessment items compatible with the Learnosity platform.",
     "examplePrompt": "A multiple-choice Learnosity item asking which planet is closest to the sun, with four options and Mercury as the correct answer.",
     "itemTypes": ["assessment", "learnosity"],
     "showcaseItemId": null
-  },
-  {
-    "id": "L0159",
-    "name": "Flashcards",
-    "blurb": "Vocabulary, matching, and memory game assessments.",
-    "examplePrompt": "A set of flashcards matching five Spanish color words to their English meanings, playable as a memory game.",
-    "itemTypes": ["assessment", "flashcards", "match", "memory"],
-    "showcaseItemId": "gcq5EFzOVe02Cjj7sVM4",
-    "embedScale": 0.6
   },
   {
     "id": "L0166",

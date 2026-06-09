@@ -37,18 +37,8 @@ No credential is required to try Graffiticode. Call the MCP server with no Autho
 
 The following language IDs are currently published. Full details for each:
 
-- L0152 (Interactive Map): Geographic assessments with labeled, clickable regions.
-  https://graffiticode.org/languages/L0152
-- L0153 (Area Model): Visual multiplication and area assessments.
-  https://graffiticode.org/languages/L0153
-- L0154 (Magic Square): Arithmetic puzzle assessments where rows, columns, and diagonals share a sum.
-  https://graffiticode.org/languages/L0154
-- L0157 (Geoboard): Geometric shape and area exploration on a peg grid.
-  https://graffiticode.org/languages/L0157
 - L0158 (Learnosity Item): Assessment items compatible with the Learnosity platform.
   https://graffiticode.org/languages/L0158
-- L0159 (Flashcards): Vocabulary, matching, and memory game assessments.
-  https://graffiticode.org/languages/L0159
 - L0166 (Spreadsheet): Structured, embeddable spreadsheets with live formulas.
   https://graffiticode.org/languages/L0166
 - L0169 (Concept Web): Radial concept-web diagrams and assessments.

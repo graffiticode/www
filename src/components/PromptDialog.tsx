@@ -21,8 +21,7 @@ export function PromptDialog({
 }) {
   const ref = useRef<HTMLDialogElement>(null)
 
-  const call = `language: ${language}
-prompt: ${prompt}`
+  const call = prompt
 
   function open() {
     track('show_prompt', { language })
@@ -44,7 +43,9 @@ prompt: ${prompt}`
       >
         <div className="p-5">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-sand-50">One call made the artifact</h2>
+            <h2 className="text-sm font-semibold text-sand-50">
+              The prompt that made this <span className="font-mono text-brand-clay">{language}</span> artifact
+            </h2>
             <button
               type="button"
               onClick={() => ref.current?.close()}
@@ -54,7 +55,7 @@ prompt: ${prompt}`
               ✕
             </button>
           </div>
-          <CodeBlock label="prompt" language="text" code={call} />
+          <CodeBlock label="prompt" language="text" code={call} wrap />
           <p className="mt-3 text-xs text-sand-400">
             No credential required — pass this prompt to the MCP server&rsquo;s{' '}
             <code className="font-mono">create_item</code> and open the returned{' '}

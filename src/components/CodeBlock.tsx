@@ -10,11 +10,13 @@ export function CodeBlock({
   language = 'json',
   label,
   className,
+  wrap = false,
 }: {
   code: string
   language?: string
   label?: string
   className?: string
+  wrap?: boolean
 }) {
   const [copied, setCopied] = useState(false)
 
@@ -40,7 +42,7 @@ export function CodeBlock({
           {copied ? 'Copied' : 'Copy'}
         </button>
       </div>
-      <pre className="overflow-x-auto p-4 text-sm leading-relaxed">
+      <pre className={clsx('p-4 text-sm leading-relaxed', wrap ? 'whitespace-pre-wrap break-words' : 'overflow-x-auto')}>
         <code className="font-mono text-sand-100">{code}</code>
       </pre>
     </div>

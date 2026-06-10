@@ -14,7 +14,7 @@
     "blurb": "Structured, embeddable spreadsheets with live formulas.",
     "examplePrompt": "A monthly budget spreadsheet with labeled income and expense rows, a SUM total, and a remaining-balance cell that updates live.",
     "itemTypes": ["spreadsheet", "assessment_spreadsheet", "parameterized_spreadsheet"],
-    "showcaseTaskId": "eyJ0YXNrSWRzIjpbInBEMVRXVGhZdkFvZnM4bU5sb255Il19",
+    "showcaseTaskId": "eyJ0YXNrSWRzIjpbInBNcHplczVuNUhhWkVpTFRVcVZKIl19",
     "embedScale": 0.75
   },
   {

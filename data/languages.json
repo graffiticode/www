@@ -25,7 +25,7 @@
     "blurb": "Radial concept-web diagrams and assessments.",
     "examplePrompt": "A concept web about photosynthesis: 'Light Reactions' at the center, connected to Calvin Cycle, Chlorophyll, and ATP Production. Dark theme.",
     "itemTypes": ["assessment", "concept_web", "diagram"],
-    "showcaseTaskId": "eyJ0YXNrSWRzIjpbImNtQzRTT3dNd3Zkd1ZJeXdUTVlKIl19",
+    "showcaseTaskId": "eyJ0YXNrSWRzIjpbIjF4YTR6OW15aGNVRTIwOTZxdmd1Il19",
     "embedScale": 0.75,
     "embedRatio": "1 / 1"
   },

@@ -5,7 +5,8 @@
     "blurb": "Assessment items compatible with the Learnosity platform.",
     "examplePrompt": "A multiple-choice Learnosity item asking which planet is closest to the sun, with four options and Mercury as the correct answer.",
     "itemTypes": ["assessment", "learnosity"],
-    "showcaseTaskId": "eyJ0YXNrSWRzIjpbIlFXdmwzWVQ4ZVgwSW90YXpiT1MxIl19"
+    "showcaseTaskId": "eyJ0YXNrSWRzIjpbIlFXdmwzWVQ4ZVgwSW90YXpiT1MxIl19",
+    "embedScale": 0.75
   },
   {
     "id": "L0166",
@@ -22,7 +23,8 @@
     "blurb": "Radial concept-web diagrams and assessments.",
     "examplePrompt": "A concept web about photosynthesis: 'Light Reactions' at the center, connected to Calvin Cycle, Chlorophyll, and ATP Production. Dark theme.",
     "itemTypes": ["assessment", "concept_web", "diagram"],
-    "showcaseTaskId": "eyJ0YXNrSWRzIjpbImNtQzRTT3dNd3Zkd1ZJeXdUTVlKIl19"
+    "showcaseTaskId": "eyJ0YXNrSWRzIjpbImNtQzRTT3dNd3Zkd1ZJeXdUTVlKIl19",
+    "embedScale": 0.75
   },
   {
     "id": "L0170",
@@ -30,7 +32,8 @@
     "blurb": "Fetch JSON or CSV from the web and reshape it with a filter, group, join, and sort pipeline.",
     "examplePrompt": "Group this data by department, count the rows, and compute the average salary rounded to 2 decimals. Sort by count descending. Take the top 5 departments.",
     "itemTypes": ["data_pipeline"],
-    "showcaseTaskId": null
+    "showcaseTaskId": "eyJ0YXNrSWRzIjpbInZER09KRGI4MVBaem1FT2VkN0ZuIl19",
+    "embedScale": 0.75
   },
   {
     "id": "L0173",

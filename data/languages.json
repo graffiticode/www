@@ -6,7 +6,8 @@
     "examplePrompt": "A multiple-choice Learnosity item asking which planet is closest to the sun, with four options and Mercury as the correct answer.",
     "itemTypes": ["assessment", "learnosity"],
     "showcaseTaskId": "eyJ0YXNrSWRzIjpbIlFXdmwzWVQ4ZVgwSW90YXpiT1MxIl19",
-    "embedScale": 0.75
+    "embedScale": 0.75,
+    "embedRatio": "4 / 3"
   },
   {
     "id": "L0166",
@@ -15,7 +16,8 @@
     "examplePrompt": "A monthly budget spreadsheet with labeled income and expense rows, a SUM total, and a remaining-balance cell that updates live.",
     "itemTypes": ["spreadsheet", "assessment_spreadsheet", "parameterized_spreadsheet"],
     "showcaseTaskId": "eyJ0YXNrSWRzIjpbInBNcHplczVuNUhhWkVpTFRVcVZKIl19",
-    "embedScale": 0.75
+    "embedScale": 0.75,
+    "embedRatio": "3 / 2"
   },
   {
     "id": "L0169",
@@ -24,7 +26,8 @@
     "examplePrompt": "A concept web about photosynthesis: 'Light Reactions' at the center, connected to Calvin Cycle, Chlorophyll, and ATP Production. Dark theme.",
     "itemTypes": ["assessment", "concept_web", "diagram"],
     "showcaseTaskId": "eyJ0YXNrSWRzIjpbImNtQzRTT3dNd3Zkd1ZJeXdUTVlKIl19",
-    "embedScale": 0.75
+    "embedScale": 0.75,
+    "embedRatio": "1 / 1"
   },
   {
     "id": "L0170",
@@ -33,7 +36,8 @@
     "examplePrompt": "Group this data by department, count the rows, and compute the average salary rounded to 2 decimals. Sort by count descending. Take the top 5 departments.",
     "itemTypes": ["data_pipeline"],
     "showcaseTaskId": "eyJ0YXNrSWRzIjpbInZER09KRGI4MVBaem1FT2VkN0ZuIl19",
-    "embedScale": 0.75
+    "embedScale": 0.75,
+    "embedRatio": "3 / 4"
   },
   {
     "id": "L0173",
@@ -42,6 +46,7 @@
     "examplePrompt": "A combo chart titled 'Quarterly Revenue & Growth' with eight quarters on the x-axis (Q1–Q4 2024, then Q1–Q4 2025). Revenue as vertical bars (thousands): 120, 150, 170, 210, 240, 230, 290, 340. A smooth line on a secondary y-axis shows quarter-over-quarter growth percent: 0, 25, 13, 24, 14, -4, 26, 17. Label the left axis 'Revenue ($K)' and the right axis 'Growth (%)'. Include a legend, value labels on the bars, light gridlines, and a clean modern theme.",
     "itemTypes": ["chart"],
     "showcaseTaskId": "eyJ0YXNrSWRzIjpbIkVCdFVTMkJjaTZ5ejJJM1g5UWtUIl19",
-    "embedScale": 0.75
+    "embedScale": 0.75,
+    "embedRatio": "3 / 2"
   }
 ]

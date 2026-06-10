@@ -23,6 +23,10 @@ export interface Language {
   showcaseTaskId: string | null
   /** Optional zoom for the embedded item (e.g. 0.75 to render at 75%). Defaults to 1. */
   embedScale?: number
+  /** Optional per-tool aspect ratio for the live-example frame (CSS aspect-ratio,
+   * e.g. '3 / 2', '1 / 1', '16 / 9'). The frame is always full width; this sets its
+   * height. Defaults to '3 / 2' when unset. */
+  embedRatio?: string
 }
 
 export interface McpTool {

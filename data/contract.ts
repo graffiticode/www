@@ -19,7 +19,7 @@ export interface Language {
   examplePrompt: string
   itemTypes: string[]
   /** A real task id (base64 {"taskIds":[...]}), embedded as living proof.
-   * Rendered directly via /form/<taskId> so the app skips the item→task lookup. */
+   * Rendered directly via /form?id=<taskId> so the app skips the item→task lookup. */
   showcaseTaskId: string | null
   /** Optional zoom for the embedded item (e.g. 0.75 to render at 75%). Defaults to 1. */
   embedScale?: number
@@ -38,6 +38,7 @@ export const MCP_ENDPOINT = 'https://mcp.graffiticode.org/mcp'
 export const MCP_ABOUT = 'https://mcp.graffiticode.org/about'
 
 export const APP_URL = 'https://app.graffiticode.org'
+export const API_URL = 'https://api.graffiticode.org'
 export const CONSOLE_URL = 'https://console.graffiticode.org'
 export const FORUM_URL = 'https://forum.graffiticode.org'
 export const GITHUB_URL = 'https://github.com/graffiticode'
@@ -101,9 +102,10 @@ export function getLanguage(id: string): Language | undefined {
   return LANGUAGES.find((l) => l.id.toLowerCase() === id.toLowerCase())
 }
 
-/** The view URL for a hosted item or task (the /form route accepts either by syntax). */
+/** The view URL for a hosted item or task. Served by the lighter-weight API
+ * service's /form route (accepts either an item or task id via ?id=). */
 export function viewUrl(id: string): string {
-  return `${APP_URL}/form/${id}`
+  return `${API_URL}/form?id=${id}`
 }
 
 /** Items with a real showcase task id, for the proof gallery / live embeds. */

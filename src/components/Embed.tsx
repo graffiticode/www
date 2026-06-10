@@ -4,21 +4,21 @@ import { viewUrl } from '@data/contract'
 
 /**
  * A live, interactive Graffiticode item — real proof, not a screenshot.
- * Renders the hosted item in an iframe at a landscape aspect ratio (most items
- * are wider than 1:1). When no showcase id is set yet, shows a labelled
- * placeholder so the page is honest about what's wired vs pending.
+ * Renders the hosted item in an iframe at a square aspect ratio by default so
+ * the frame is as tall as it is wide. When no showcase id is set yet, shows a
+ * labelled placeholder so the page is honest about what's wired vs pending.
  */
 export function Embed({
   id,
   title,
   className,
-  ratio = '3 / 2',
+  ratio = '1 / 1',
   scale = 1,
 }: {
   id: string | null
   title: string
   className?: string
-  /** CSS aspect-ratio for the frame, e.g. '3 / 2' (default) or '16 / 9'. */
+  /** CSS aspect-ratio for the frame, e.g. '1 / 1' (default, square) or '16 / 9'. */
   ratio?: string
   /** Zoom the embedded content, e.g. 0.75 to render the form at 75%. */
   scale?: number

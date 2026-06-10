@@ -1,11 +1,11 @@
 [
   {
     "id": "L0158",
-    "name": "Learnosity Item",
+    "name": "Learnosity Assessment",
     "blurb": "Assessment items compatible with the Learnosity platform.",
     "examplePrompt": "A multiple-choice Learnosity item asking which planet is closest to the sun, with four options and Mercury as the correct answer.",
     "itemTypes": ["assessment", "learnosity"],
-    "showcaseTaskId": null
+    "showcaseTaskId": "eyJ0YXNrSWRzIjpbIlFXdmwzWVQ4ZVgwSW90YXpiT1MxIl19"
   },
   {
     "id": "L0166",
@@ -22,7 +22,7 @@
     "blurb": "Radial concept-web diagrams and assessments.",
     "examplePrompt": "A concept web about photosynthesis: 'Light Reactions' at the center, connected to Calvin Cycle, Chlorophyll, and ATP Production. Dark theme.",
     "itemTypes": ["assessment", "concept_web", "diagram"],
-    "showcaseTaskId": null
+    "showcaseTaskId": "eyJ0YXNrSWRzIjpbImNtQzRTT3dNd3Zkd1ZJeXdUTVlKIl19"
   },
   {
     "id": "L0170",
@@ -46,7 +46,7 @@
     "blurb": "Declarative charts compiled to Apache ECharts — bar, line, pie, donut, and more.",
     "examplePrompt": "A combo chart titled 'Quarterly Revenue & Growth' with eight quarters on the x-axis (Q1–Q4 2024, then Q1–Q4 2025). Revenue as vertical bars (thousands): 120, 150, 170, 210, 240, 230, 290, 340. A smooth line on a secondary y-axis shows quarter-over-quarter growth percent: 0, 25, 13, 24, 14, -4, 26, 17. Label the left axis 'Revenue ($K)' and the right axis 'Growth (%)'. Include a legend, value labels on the bars, light gridlines, and a clean modern theme.",
     "itemTypes": ["chart"],
-    "showcaseTaskId": "eyJ0YXNrSWRzIjpbIkVCdFVTMkJjaTZ5ejJJM1g5UWtUIl19",
+    "showcaseTaskId": "eyJ0YXNrSWRzIjpbInVFVUNRY2JZRUZxaGNacVpzTktxIl19",
     "embedScale": 0.75
   }
 ]

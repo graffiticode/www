@@ -18,8 +18,9 @@ export interface Language {
   blurb: string
   examplePrompt: string
   itemTypes: string[]
-  /** A real item created via the MCP server, embedded as living proof. */
-  showcaseItemId: string | null
+  /** A real task id (base64 {"taskIds":[...]}), embedded as living proof.
+   * Rendered directly via /form/<taskId> so the app skips the item→task lookup. */
+  showcaseTaskId: string | null
   /** Optional zoom for the embedded item (e.g. 0.75 to render at 75%). Defaults to 1. */
   embedScale?: number
 }
@@ -100,10 +101,10 @@ export function getLanguage(id: string): Language | undefined {
   return LANGUAGES.find((l) => l.id.toLowerCase() === id.toLowerCase())
 }
 
-/** The view URL for a hosted item (renders interactively without a credential once claimed). */
-export function viewUrl(itemId: string): string {
-  return `${APP_URL}/form/${itemId}`
+/** The view URL for a hosted item or task (the /form route accepts either by syntax). */
+export function viewUrl(id: string): string {
+  return `${APP_URL}/form/${id}`
 }
 
-/** Items with a real showcase id, for the proof gallery / live embeds. */
-export const SHOWCASE = LANGUAGES.filter((l) => l.showcaseItemId)
+/** Items with a real showcase task id, for the proof gallery / live embeds. */
+export const SHOWCASE = LANGUAGES.filter((l) => l.showcaseTaskId)

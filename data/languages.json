@@ -5,7 +5,7 @@
     "blurb": "Assessment items compatible with the Learnosity platform.",
     "examplePrompt": "A multiple-choice Learnosity item asking which planet is closest to the sun, with four options and Mercury as the correct answer.",
     "itemTypes": ["assessment", "learnosity"],
-    "showcaseItemId": null
+    "showcaseTaskId": null
   },
   {
     "id": "L0166",
@@ -13,7 +13,7 @@
     "blurb": "Structured, embeddable spreadsheets with live formulas.",
     "examplePrompt": "A monthly budget spreadsheet with labeled income and expense rows, a SUM total, and a remaining-balance cell that updates live.",
     "itemTypes": ["spreadsheet", "assessment_spreadsheet", "parameterized_spreadsheet"],
-    "showcaseItemId": "XQa24BMTBXIhxEEopx9f",
+    "showcaseTaskId": "eyJ0YXNrSWRzIjpbInBEMVRXVGhZdkFvZnM4bU5sb255Il19",
     "embedScale": 0.75
   },
   {
@@ -22,7 +22,7 @@
     "blurb": "Radial concept-web diagrams and assessments.",
     "examplePrompt": "A concept web about photosynthesis: 'Light Reactions' at the center, connected to Calvin Cycle, Chlorophyll, and ATP Production. Dark theme.",
     "itemTypes": ["assessment", "concept_web", "diagram"],
-    "showcaseItemId": null
+    "showcaseTaskId": null
   },
   {
     "id": "L0170",
@@ -30,7 +30,7 @@
     "blurb": "Fetch JSON or CSV from the web and reshape it with a filter, group, join, and sort pipeline.",
     "examplePrompt": "Group this data by department, count the rows, and compute the average salary rounded to 2 decimals. Sort by count descending. Take the top 5 departments.",
     "itemTypes": ["data_pipeline"],
-    "showcaseItemId": null
+    "showcaseTaskId": null
   },
   {
     "id": "L0172",
@@ -38,7 +38,7 @@
     "blurb": "FigJam board content — sticky notes, shapes, connectors, and sections, placed by coordinates.",
     "examplePrompt": "A retrospective board with three sections in a row — 'Went Well' with green stickies, 'To Improve' with yellow stickies, and 'Action Items' with blue stickies.",
     "itemTypes": ["figjam_board"],
-    "showcaseItemId": null
+    "showcaseTaskId": null
   },
   {
     "id": "L0173",
@@ -46,7 +46,7 @@
     "blurb": "Declarative charts compiled to Apache ECharts — bar, line, pie, donut, and more.",
     "examplePrompt": "A combo chart titled 'Quarterly Revenue & Growth' with eight quarters on the x-axis (Q1–Q4 2024, then Q1–Q4 2025). Revenue as vertical bars (thousands): 120, 150, 170, 210, 240, 230, 290, 340. A smooth line on a secondary y-axis shows quarter-over-quarter growth percent: 0, 25, 13, 24, 14, -4, 26, 17. Label the left axis 'Revenue ($K)' and the right axis 'Growth (%)'. Include a legend, value labels on the bars, light gridlines, and a clean modern theme.",
     "itemTypes": ["chart"],
-    "showcaseItemId": "ndm0l0FWTECvtf1yy1Uv",
+    "showcaseTaskId": "eyJ0YXNrSWRzIjpbIkVCdFVTMkJjaTZ5ejJJM1g5UWtUIl19",
     "embedScale": 0.75
   }
 ]

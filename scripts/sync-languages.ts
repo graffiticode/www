@@ -2,7 +2,7 @@
  * Refresh data/languages.json from the LIVE MCP server (list_languages), so the
  * site's language registry can't drift from what the server actually exposes.
  *
- * Curated fields (blurb, examplePrompt, showcaseItemId) are preserved; only
+ * Curated fields (blurb, examplePrompt, showcaseTaskId) are preserved; only
  * server-owned fields (name, itemTypes) and membership are updated. New
  * languages are added with empty curated fields and flagged so we fill them in.
  *
@@ -25,7 +25,7 @@ type Lang = {
   blurb: string
   examplePrompt: string
   itemTypes: string[]
-  showcaseItemId: string | null
+  showcaseTaskId: string | null
 }
 
 let sessionId = ''
@@ -104,7 +104,7 @@ async function main() {
       blurb: '',
       examplePrompt: '',
       itemTypes: srv.itemTypes ?? [],
-      showcaseItemId: null,
+      showcaseTaskId: null,
     }
   })
 

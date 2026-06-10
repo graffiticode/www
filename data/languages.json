@@ -33,14 +33,6 @@
     "showcaseTaskId": null
   },
   {
-    "id": "L0172",
-    "name": "FigJam Board",
-    "blurb": "FigJam board content — sticky notes, shapes, connectors, and sections, placed by coordinates.",
-    "examplePrompt": "A retrospective board with three sections in a row — 'Went Well' with green stickies, 'To Improve' with yellow stickies, and 'Action Items' with blue stickies.",
-    "itemTypes": ["figjam_board"],
-    "showcaseTaskId": null
-  },
-  {
     "id": "L0173",
     "name": "Charts",
     "blurb": "Declarative charts compiled to Apache ECharts — bar, line, pie, donut, and more.",

@@ -37,7 +37,7 @@ No credential is required to try Graffiticode. Call the MCP server with no Autho
 
 The following language IDs are currently published. Full details for each:
 
-- L0158 (Learnosity Item): Assessment items compatible with the Learnosity platform.
+- L0158 (Learnosity Assessment): Assessment items compatible with the Learnosity platform.
   https://graffiticode.org/languages/L0158
 - L0166 (Spreadsheet): Structured, embeddable spreadsheets with live formulas.
   https://graffiticode.org/languages/L0166
@@ -45,8 +45,6 @@ The following language IDs are currently published. Full details for each:
   https://graffiticode.org/languages/L0169
 - L0170 (Data Pipeline): Fetch JSON or CSV from the web and reshape it with a filter, group, join, and sort pipeline.
   https://graffiticode.org/languages/L0170
-- L0172 (FigJam Board): FigJam board content — sticky notes, shapes, connectors, and sections, placed by coordinates.
-  https://graffiticode.org/languages/L0172
 - L0173 (Charts): Declarative charts compiled to Apache ECharts — bar, line, pie, donut, and more.
   https://graffiticode.org/languages/L0173
 

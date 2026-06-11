@@ -23,7 +23,7 @@
     "id": "L0169",
     "name": "Concept Web",
     "blurb": "Radial concept-web diagrams and assessments.",
-    "examplePrompt": "Make a simple concept web with draggable concepts and relations. This is for a demo so make it small and interesting.",
+    "examplePrompt": "Make a concept web assessment with draggable concepts and relations about the water cycle",
     "itemTypes": ["assessment", "concept_web", "diagram"],
     "showcaseTaskId": "eyJ0YXNrSWRzIjpbIjF4YTR6OW15aGNVRTIwOTZxdmd1Il19",
     "embedScale": 0.75,

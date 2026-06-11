@@ -35,7 +35,7 @@
     "blurb": "Fetch JSON or CSV from the web and reshape it with a filter, group, join, and sort pipeline.",
     "examplePrompt": "Group this data by department, count the rows, and compute the average salary rounded to 2 decimals. Sort by count descending. Take the top 5 departments.",
     "itemTypes": ["data_pipeline"],
-    "showcaseTaskId": "eyJ0YXNrSWRzIjpbInZER09KRGI4MVBaem1FT2VkN0ZuIl19",
+    "showcaseTaskId": "eyJ0YXNrSWRzIjpbInVYbWVUemNpeFkwT2dyNnJOMllSIl19",
     "embedScale": 0.75,
     "embedRatio": "3 / 4"
   },

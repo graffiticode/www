@@ -20,34 +20,9 @@
   "github_url": "https://github.com/graffiticode",
   "languages": [
     {
-      "id": "L0152",
-      "name": "Interactive Map",
-      "spec_url": "https://graffiticode.org/languages/L0152"
-    },
-    {
-      "id": "L0153",
-      "name": "Area Model",
-      "spec_url": "https://graffiticode.org/languages/L0153"
-    },
-    {
-      "id": "L0154",
-      "name": "Magic Square",
-      "spec_url": "https://graffiticode.org/languages/L0154"
-    },
-    {
-      "id": "L0157",
-      "name": "Geoboard",
-      "spec_url": "https://graffiticode.org/languages/L0157"
-    },
-    {
       "id": "L0158",
-      "name": "Learnosity Item",
+      "name": "Learnosity Assessment",
       "spec_url": "https://graffiticode.org/languages/L0158"
-    },
-    {
-      "id": "L0159",
-      "name": "Flashcards",
-      "spec_url": "https://graffiticode.org/languages/L0159"
     },
     {
       "id": "L0166",
@@ -63,11 +38,6 @@
       "id": "L0170",
       "name": "Data Pipeline",
       "spec_url": "https://graffiticode.org/languages/L0170"
-    },
-    {
-      "id": "L0172",
-      "name": "FigJam Board",
-      "spec_url": "https://graffiticode.org/languages/L0172"
     },
     {
       "id": "L0173",

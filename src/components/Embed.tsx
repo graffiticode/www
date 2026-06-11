@@ -9,13 +9,13 @@ import { viewUrl } from '@data/contract'
  * placeholder so the page is honest about what's wired vs pending.
  */
 export function Embed({
-  itemId,
+  id,
   title,
   className,
   ratio = '3 / 2',
   scale = 1,
 }: {
-  itemId: string | null
+  id: string | null
   title: string
   className?: string
   /** CSS aspect-ratio for the frame, e.g. '3 / 2' (default) or '16 / 9'. */
@@ -23,7 +23,7 @@ export function Embed({
   /** Zoom the embedded content, e.g. 0.75 to render the form at 75%. */
   scale?: number
 }) {
-  if (!itemId) {
+  if (!id) {
     return (
       <div
         className={
@@ -42,7 +42,7 @@ export function Embed({
     <figure className={'overflow-hidden rounded-xl border border-white/10 bg-white ' + (className ?? '')}>
       <div style={{ aspectRatio: ratio }} className="w-full overflow-hidden">
         <iframe
-          src={viewUrl(itemId)}
+          src={viewUrl(id)}
           title={title}
           loading="lazy"
           className="h-full w-full"
@@ -61,7 +61,7 @@ export function Embed({
       </div>
       <figcaption className="flex items-center justify-between border-t border-brand-cream bg-brand-cream/60 px-3 py-1.5 text-xs text-brand-maroon">
         <span>{title}</span>
-        <Link href={viewUrl(itemId)} target="_blank" className="font-medium text-brand-deep hover:underline">
+        <Link href={viewUrl(id)} target="_blank" className="font-medium text-brand-deep hover:underline">
           Open ↗
         </Link>
       </figcaption>

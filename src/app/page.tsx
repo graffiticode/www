@@ -8,7 +8,7 @@ import { PromptDialog } from '@/components/PromptDialog'
 import { LANGUAGES, SHOWCASE, MCP_ENDPOINT, FREE_PLAN } from '@data/contract'
 
 // Feature the charts tool in the hero when it has a live item; otherwise the first showcase.
-const preferred = LANGUAGES.find((l) => l.id === 'L0173' && l.showcaseItemId)
+const preferred = LANGUAGES.find((l) => l.id === 'L0173' && l.showcaseTaskId)
 const featured = preferred ?? SHOWCASE[0] ?? LANGUAGES[0]
 
 const heroCall = `create_item({
@@ -78,14 +78,10 @@ export default function HomePage() {
           </div>
 
           <div>
-            <Embed itemId={featured.showcaseItemId} title={`${featured.name} — made with one MCP call`} scale={featured.embedScale ?? 1} />
+            <Embed id={featured.showcaseTaskId} title={`${featured.name} — made with one MCP call`} scale={featured.embedScale ?? 1} ratio={featured.embedRatio} />
             <p className="mt-3 text-center text-sm text-sand-400">
               An agent made this with one call.{' '}
               <PromptDialog language={featured.id} prompt={featured.examplePrompt} />
-              {' · '}
-              <Link href="/agents" className="font-medium text-brand-clay hover:underline">
-                Make your own →
-              </Link>
             </p>
           </div>
         </Container>

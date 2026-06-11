@@ -18,10 +18,15 @@ export interface Language {
   blurb: string
   examplePrompt: string
   itemTypes: string[]
-  /** A real item created via the MCP server, embedded as living proof. */
-  showcaseItemId: string | null
+  /** A real task id (base64 {"taskIds":[...]}), embedded as living proof.
+   * Rendered directly via /form?id=<taskId> so the app skips the item→task lookup. */
+  showcaseTaskId: string | null
   /** Optional zoom for the embedded item (e.g. 0.75 to render at 75%). Defaults to 1. */
   embedScale?: number
+  /** Optional per-tool aspect ratio for the live-example frame (CSS aspect-ratio,
+   * e.g. '3 / 2', '1 / 1', '16 / 9'). The frame is always full width; this sets its
+   * height. Defaults to '3 / 2' when unset. */
+  embedRatio?: string
 }
 
 export interface McpTool {
@@ -37,6 +42,7 @@ export const MCP_ENDPOINT = 'https://mcp.graffiticode.org/mcp'
 export const MCP_ABOUT = 'https://mcp.graffiticode.org/about'
 
 export const APP_URL = 'https://app.graffiticode.org'
+export const API_URL = 'https://api.graffiticode.org'
 export const CONSOLE_URL = 'https://console.graffiticode.org'
 export const FORUM_URL = 'https://forum.graffiticode.org'
 export const GITHUB_URL = 'https://github.com/graffiticode'
@@ -100,10 +106,11 @@ export function getLanguage(id: string): Language | undefined {
   return LANGUAGES.find((l) => l.id.toLowerCase() === id.toLowerCase())
 }
 
-/** The view URL for a hosted item (renders interactively without a credential once claimed). */
-export function viewUrl(itemId: string): string {
-  return `${APP_URL}/form/${itemId}`
+/** The view URL for a hosted item or task. Served by the lighter-weight API
+ * service's /form route (accepts either an item or task id via ?id=). */
+export function viewUrl(id: string): string {
+  return `${API_URL}/form?id=${id}`
 }
 
-/** Items with a real showcase id, for the proof gallery / live embeds. */
-export const SHOWCASE = LANGUAGES.filter((l) => l.showcaseItemId)
+/** Items with a real showcase task id, for the proof gallery / live embeds. */
+export const SHOWCASE = LANGUAGES.filter((l) => l.showcaseTaskId)

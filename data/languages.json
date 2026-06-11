@@ -1,52 +1,13 @@
 [
   {
-    "id": "L0152",
-    "name": "Interactive Map",
-    "blurb": "Geographic assessments with labeled, clickable regions.",
-    "examplePrompt": "An interactive map of South America where the student clicks the country that contains the Amazon rainforest. Highlight the correct answer in green.",
-    "itemTypes": ["assessment", "map"],
-    "showcaseItemId": null
-  },
-  {
-    "id": "L0153",
-    "name": "Area Model",
-    "blurb": "Visual multiplication and area assessments.",
-    "examplePrompt": "An area model showing 23 × 14 split into partial products, with the student filling in each region.",
-    "itemTypes": ["assessment", "area_model"],
-    "showcaseItemId": null
-  },
-  {
-    "id": "L0154",
-    "name": "Magic Square",
-    "blurb": "Arithmetic puzzle assessments where rows, columns, and diagonals share a sum.",
-    "examplePrompt": "A 3×3 magic square with a target sum of 15, three cells pre-filled, and the student completing the rest.",
-    "itemTypes": ["assessment", "puzzle"],
-    "showcaseItemId": null
-  },
-  {
-    "id": "L0157",
-    "name": "Geoboard",
-    "blurb": "Geometric shape and area exploration on a peg grid.",
-    "examplePrompt": "A geoboard where the student stretches a band to make a triangle with an area of 6 square units.",
-    "itemTypes": ["assessment", "geometry"],
-    "showcaseItemId": null
-  },
-  {
     "id": "L0158",
-    "name": "Learnosity Item",
+    "name": "Learnosity Assessment",
     "blurb": "Assessment items compatible with the Learnosity platform.",
-    "examplePrompt": "A multiple-choice Learnosity item asking which planet is closest to the sun, with four options and Mercury as the correct answer.",
+    "examplePrompt": "Create an ordered list assessment of the top 5 GDP countries in descending order",
     "itemTypes": ["assessment", "learnosity"],
-    "showcaseItemId": null
-  },
-  {
-    "id": "L0159",
-    "name": "Flashcards",
-    "blurb": "Vocabulary, matching, and memory game assessments.",
-    "examplePrompt": "A set of flashcards matching five Spanish color words to their English meanings, playable as a memory game.",
-    "itemTypes": ["assessment", "flashcards", "match", "memory"],
-    "showcaseItemId": "gcq5EFzOVe02Cjj7sVM4",
-    "embedScale": 0.6
+    "showcaseTaskId": "eyJ0YXNrSWRzIjpbIlFXdmwzWVQ4ZVgwSW90YXpiT1MxIl19",
+    "embedScale": 0.75,
+    "embedRatio": "4 / 3"
   },
   {
     "id": "L0166",
@@ -54,32 +15,29 @@
     "blurb": "Structured, embeddable spreadsheets with live formulas.",
     "examplePrompt": "A monthly budget spreadsheet with labeled income and expense rows, a SUM total, and a remaining-balance cell that updates live.",
     "itemTypes": ["spreadsheet", "assessment_spreadsheet", "parameterized_spreadsheet"],
-    "showcaseItemId": "XQa24BMTBXIhxEEopx9f",
-    "embedScale": 0.75
+    "showcaseTaskId": "eyJ0YXNrSWRzIjpbInBNcHplczVuNUhhWkVpTFRVcVZKIl19",
+    "embedScale": 0.75,
+    "embedRatio": "3 / 2"
   },
   {
     "id": "L0169",
     "name": "Concept Web",
     "blurb": "Radial concept-web diagrams and assessments.",
-    "examplePrompt": "A concept web about photosynthesis: 'Light Reactions' at the center, connected to Calvin Cycle, Chlorophyll, and ATP Production. Dark theme.",
+    "examplePrompt": "Make a concept web assessment with draggable concepts and relations about the water cycle",
     "itemTypes": ["assessment", "concept_web", "diagram"],
-    "showcaseItemId": null
+    "showcaseTaskId": "eyJ0YXNrSWRzIjpbIjF4YTR6OW15aGNVRTIwOTZxdmd1Il19",
+    "embedScale": 0.75,
+    "embedRatio": "1 / 1"
   },
   {
     "id": "L0170",
     "name": "Data Pipeline",
     "blurb": "Fetch JSON or CSV from the web and reshape it with a filter, group, join, and sort pipeline.",
-    "examplePrompt": "Group this data by department, count the rows, and compute the average salary rounded to 2 decimals. Sort by count descending. Take the top 5 departments.",
+    "examplePrompt": "Fetch population data from https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-population.json and filter the top 10 largest populations",
     "itemTypes": ["data_pipeline"],
-    "showcaseItemId": null
-  },
-  {
-    "id": "L0172",
-    "name": "FigJam Board",
-    "blurb": "FigJam board content — sticky notes, shapes, connectors, and sections, placed by coordinates.",
-    "examplePrompt": "A retrospective board with three sections in a row — 'Went Well' with green stickies, 'To Improve' with yellow stickies, and 'Action Items' with blue stickies.",
-    "itemTypes": ["figjam_board"],
-    "showcaseItemId": null
+    "showcaseTaskId": "eyJ0YXNrSWRzIjpbInVYbWVUemNpeFkwT2dyNnJOMllSIl19",
+    "embedScale": 0.75,
+    "embedRatio": "3 / 4"
   },
   {
     "id": "L0173",
@@ -87,7 +45,8 @@
     "blurb": "Declarative charts compiled to Apache ECharts — bar, line, pie, donut, and more.",
     "examplePrompt": "A combo chart titled 'Quarterly Revenue & Growth' with eight quarters on the x-axis (Q1–Q4 2024, then Q1–Q4 2025). Revenue as vertical bars (thousands): 120, 150, 170, 210, 240, 230, 290, 340. A smooth line on a secondary y-axis shows quarter-over-quarter growth percent: 0, 25, 13, 24, 14, -4, 26, 17. Label the left axis 'Revenue ($K)' and the right axis 'Growth (%)'. Include a legend, value labels on the bars, light gridlines, and a clean modern theme.",
     "itemTypes": ["chart"],
-    "showcaseItemId": "ndm0l0FWTECvtf1yy1Uv",
-    "embedScale": 0.75
+    "showcaseTaskId": "eyJ0YXNrSWRzIjpbIkVCdFVTMkJjaTZ5ejJJM1g5UWtUIl19",
+    "embedScale": 0.75,
+    "embedRatio": "3 / 2"
   }
 ]

@@ -37,7 +37,7 @@ No credential is required to try Graffiticode. Call the MCP server with no Autho
 
 The following language IDs are currently published. Full details for each:
 
-- L0158 (Learnosity Assessment): Assessment items compatible with the Learnosity platform.
+- L0158 (Learnosity Assessment): Assessment items on the Learnosity platform.
   https://graffiticode.org/languages/L0158
 - L0166 (Spreadsheet): Structured, embeddable spreadsheets with live formulas.
   https://graffiticode.org/languages/L0166

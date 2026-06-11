@@ -2,7 +2,7 @@
   {
     "id": "L0158",
     "name": "Learnosity Assessment",
-    "blurb": "Assessment items compatible with the Learnosity platform.",
+    "blurb": "Assessment items on the Learnosity platform.",
     "examplePrompt": "Create an ordered list assessment of the top 5 GDP countries in descending order",
     "itemTypes": ["assessment", "learnosity"],
     "showcaseTaskId": "eyJ0YXNrSWRzIjpbIlFXdmwzWVQ4ZVgwSW90YXpiT1MxIl19",

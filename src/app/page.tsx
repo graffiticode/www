@@ -82,10 +82,6 @@ export default function HomePage() {
             <p className="mt-3 text-center text-sm text-sand-400">
               An agent made this with one call.{' '}
               <PromptDialog language={featured.id} prompt={featured.examplePrompt} />
-              {' · '}
-              <Link href="/agents" className="font-medium text-brand-clay hover:underline">
-                Make your own →
-              </Link>
             </p>
           </div>
         </Container>

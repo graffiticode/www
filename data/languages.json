@@ -7,7 +7,7 @@
     "itemTypes": ["assessment", "learnosity"],
     "showcaseTaskId": "eyJ0YXNrSWRzIjpbIlFXdmwzWVQ4ZVgwSW90YXpiT1MxIl19",
     "embedScale": 0.75,
-    "embedRatio": "4 / 3"
+    "embedRatio": "3 / 2"
   },
   {
     "id": "L0166",
@@ -37,7 +37,7 @@
     "itemTypes": ["data_pipeline"],
     "showcaseTaskId": "eyJ0YXNrSWRzIjpbInVYbWVUemNpeFkwT2dyNnJOMllSIl19",
     "embedScale": 0.75,
-    "embedRatio": "4 / 5"
+    "embedRatio": "5 / 6"
   },
   {
     "id": "L0173",

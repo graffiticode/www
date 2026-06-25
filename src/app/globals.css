@@ -10,7 +10,7 @@
   --color-brand: #e48fd0; /* bright orchid — spokes */
   --color-brand-deep: #d35cbb; /* bright magenta — gear; solid CTAs */
   --color-brand-maroon: #8a2c78; /* deep plum — wordmark */
-  --color-brand-clay: #eab4e0; /* light orchid — accent text/links on dark */
+  --color-brand-clay: #d35cbb; /* magenta — accent text/links, matches button */
   --color-brand-cream: #ece0da;
 
   /* Warm neutral "sand" scale (terracotta-tinted) — used for all body text

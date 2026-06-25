@@ -2,7 +2,7 @@ import Link from 'next/link'
 import clsx from 'clsx'
 
 const styles = {
-  primary: 'bg-brand text-white hover:bg-brand-clay',
+  primary: 'bg-brand-deep text-white hover:bg-brand',
   secondary: 'border border-white/15 text-sand-100 hover:bg-white/5',
 }
 

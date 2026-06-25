@@ -13,7 +13,7 @@ export function Footer() {
           <img src="/gc-logo.png" alt="Graffiticode" width={28} height={28} className="h-7 w-7" />
           <div>
             <div className="font-mono text-xs text-sand-500">{MCP_ENDPOINT}</div>
-            <div className="mt-1">Open source under MIT. © Graffiticode.</div>
+            <div className="mt-1">Open source under MIT. © Artcompiler Inc.</div>
           </div>
         </div>
         <nav className="flex flex-wrap gap-x-5 gap-y-2">

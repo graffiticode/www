@@ -36,7 +36,7 @@ export function Header() {
 
         <a
           href={CONSOLE_URL}
-          className="rounded-md bg-brand-deep px-3 py-1.5 text-sm font-medium text-white transition hover:bg-brand"
+          className="rounded-md bg-brand-deep px-3 py-1.5 text-sm font-medium text-white transition hover:bg-[#dd6fc7]"
         >
           Open Console
         </a>

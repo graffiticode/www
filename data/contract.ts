@@ -62,7 +62,7 @@ export const FREE_PLAN = {
 }
 
 export interface PricingPlan {
-  /** Display name, e.g. "Free", "A". */
+  /** Display name, e.g. "Free", "Silver". */
   name: string
   /** Monthly base charge in USD. */
   monthlyBase: number
@@ -76,11 +76,39 @@ export interface PricingPlan {
   note: string
 }
 
+/** A short titled block used for the principle cards. */
+export interface PricingPrinciple {
+  title: string
+  body: string
+}
+
+/** Per-audience framing for the pricing page. The plans/rates are shared; only
+ * the surrounding story changes between vendors and consumers. */
+export interface PricingAudience {
+  /** Toggle label + hero eyebrow, e.g. "For vendors". */
+  eyebrow: string
+  title: string
+  lead: string
+  /** Consumer-only: the one-card explanation of sponsored vs unsponsored. */
+  sponsorship?: PricingPrinciple
+  principles: PricingPrinciple[]
+  plansHeading: string
+  plansIntro: string
+  /** Show the vendor-only "Included at every tier" section. */
+  showIncluded: boolean
+  /** Show the vendor-only "Custom language development" section. */
+  showCustom: boolean
+}
+
 /**
  * Usage-based pricing. Facts here mirror the ArtCompiler price sheet
  * (marketing/artcompiler-price-sheet.md). Internal economics — margins,
  * break-even, the pricing calculator — are deliberately NOT projected here;
  * this file only carries what the public pricing page is allowed to show.
+ *
+ * NOTE: the consumer sponsored/unsponsored dimension (PRICING.audiences.consumer)
+ * is new vocabulary not yet in the price sheet — mirror it back into
+ * marketing/artcompiler-price-sheet.md when that sheet gains a consumer section.
  */
 export const PRICING = {
   /** A "successful item" is billable; failures, reads, and iteration are free. */
@@ -92,28 +120,28 @@ export const PRICING = {
       includedItems: 50,
       additionalItem: null,
       free: true,
-      note: 'The on-ramp — stand up the surface and see it work. Hard cap at 50 items/mo; move to Plan A to go further.',
+      note: 'The on-ramp — stand up the surface and see it work. Hard cap at 50 items/mo; move to Silver to go further.',
     },
     {
-      name: 'A',
+      name: 'Silver',
       monthlyBase: 100,
       includedItems: 1_000,
       additionalItem: 0.1,
       note: 'Flat $0.10/item with a $100 monthly minimum.',
     },
     {
-      name: 'B',
+      name: 'Gold',
       monthlyBase: 1_000,
       includedItems: 20_000,
       additionalItem: 0.05,
-      note: 'Cheaper than A above ~10,000 items/mo — $0.05/item.',
+      note: 'Cheaper than Silver above ~10,000 items/mo — $0.05/item.',
     },
     {
-      name: 'C',
+      name: 'Platinum',
       monthlyBase: 10_000,
       includedItems: 400_000,
       additionalItem: 0.025,
-      note: 'Cheaper than B above ~200,000 items/mo — $0.025/item. Includes custom language development.',
+      note: 'Cheaper than Gold above ~200,000 items/mo — $0.025/item. Includes custom language development.',
     },
   ] as PricingPlan[],
   /** Value delivered at every tier — the agent-accessibility surface. */
@@ -135,6 +163,59 @@ export const PRICING = {
       body: 'Every change is recorded and reversible. Agent-driven edits are fully auditable and safe to undo — what makes granting an agent write-access to a production product sane.',
     },
   ],
+  /** Per-audience framing. The plans above are shared across both. */
+  audiences: {
+    vendor: {
+      eyebrow: 'For vendors',
+      title: 'Agent-accessibility for your product',
+      lead: 'You bring the product; we make it something an AI agent can drive — reliably, safely, and inside your guardrails. You pay for usage, not a subscription. The bill scales with adoption — no upfront commitment, no seat licenses to forecast.',
+      principles: [
+        {
+          title: 'Billed per successful item',
+          body: 'A successful item is a create request that returns a compiled, valid artifact. If it doesn’t produce a working result, you don’t pay for it.',
+        },
+        {
+          title: 'Iteration is included',
+          body: 'Refining an item — as many revisions as it takes to get it right — is part of creating it, not a separate charge. Reads and retrievals are always free.',
+        },
+        {
+          title: 'You own the customer',
+          body: 'Your customers authenticate with your credentials and never see Artcompiler. Pass our fee through, bundle it, or resell agentic authoring as a premium feature.',
+        },
+      ],
+      plansHeading: 'Plans',
+      plansIntro: 'Each paid plan is a flat per-item rate with a monthly minimum — the included bucket is priced at the same rate as additional items, so there’s no penalty for going over. Move up a plan exactly when it lowers your per-item cost.',
+      showIncluded: true,
+      showCustom: true,
+    },
+    consumer: {
+      eyebrow: 'For consumers',
+      title: 'Create with agent-driven tools',
+      lead: 'Sponsored tools cost you nothing. You pay only for what a vendor hasn’t already covered — at the same rates, with your first 50 items free every month.',
+      sponsorship: {
+        title: 'Sponsored items are free',
+        body: 'Many Graffiticode tools are sponsored by the vendor who built them — everything you create with a sponsored tool is free to you. You pay only for unsponsored items, and only at the per-item rates below.',
+      },
+      principles: [
+        {
+          title: 'No setup, no cap',
+          body: 'If a vendor sponsors the tool you’re using, every item you create with it is free — no cap, and nothing to set up on your side.',
+        },
+        {
+          title: 'Unsponsored items, same rates',
+          body: 'For tools no vendor covers, you pay the same per-item rates as everyone else. Your first 50 items each month are free.',
+        },
+        {
+          title: 'Iteration & reads are free',
+          body: 'Refining an item is part of creating it, not a separate charge. Reading and retrieving items is always free.',
+        },
+      ],
+      plansHeading: 'Pricing for unsponsored items',
+      plansIntro: 'Unsponsored items use the same flat per-item tiers below — the included bucket is priced at the same rate as additional items, so there’s no penalty for going over.',
+      showIncluded: false,
+      showCustom: false,
+    },
+  } satisfies Record<string, PricingAudience>,
 }
 
 export const TOOLS: McpTool[] = [

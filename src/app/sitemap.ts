@@ -3,7 +3,7 @@ import type { MetadataRoute } from 'next'
 import { SITE_URL, LANGUAGES } from '@data/contract'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ['', '/agents', '/languages', '/build'].map((path) => ({
+  const staticRoutes = ['', '/agents', '/languages', '/pricing', '/build'].map((path) => ({
     url: `${SITE_URL}${path}`,
     changeFrequency: 'weekly' as const,
     priority: path === '' ? 1 : 0.7,

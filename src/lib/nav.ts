@@ -3,6 +3,7 @@ import { CONSOLE_URL, FORUM_URL, GITHUB_URL } from '@data/contract'
 export const primaryNav = [
   { title: 'Quickstart', href: '/agents' },
   { title: 'Tools', href: '/languages' },
+  { title: 'Pricing', href: '/pricing' },
   { title: 'Build a tool', href: '/build' },
 ]
 

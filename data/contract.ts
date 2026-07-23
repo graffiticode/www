@@ -61,6 +61,82 @@ export const FREE_PLAN = {
     'No credential is required to try Graffiticode. Call the MCP server with no Authorization header and your work is scoped to your MCP session. Pass a Bearer token only to use your own account (gc_…) or OAuth.',
 }
 
+export interface PricingPlan {
+  /** Display name, e.g. "Free", "A". */
+  name: string
+  /** Monthly base charge in USD. */
+  monthlyBase: number
+  /** Included successful items per month. */
+  includedItems: number
+  /** Per-item price beyond the included bucket in USD, or null when overage isn't offered. */
+  additionalItem: number | null
+  /** Whether this is the free on-ramp tier. */
+  free?: boolean
+  /** One-line positioning shown on the plan card. */
+  note: string
+}
+
+/**
+ * Usage-based pricing. Facts here mirror the ArtCompiler price sheet
+ * (marketing/artcompiler-price-sheet.md). Internal economics — margins,
+ * break-even, the pricing calculator — are deliberately NOT projected here;
+ * this file only carries what the public pricing page is allowed to show.
+ */
+export const PRICING = {
+  /** A "successful item" is billable; failures, reads, and iteration are free. */
+  billableUnit: 'successful item',
+  plans: [
+    {
+      name: 'Free',
+      monthlyBase: 0,
+      includedItems: 50,
+      additionalItem: null,
+      free: true,
+      note: 'The on-ramp — stand up the surface and see it work. Hard cap at 50 items/mo; move to Plan A to go further.',
+    },
+    {
+      name: 'A',
+      monthlyBase: 100,
+      includedItems: 1_000,
+      additionalItem: 0.1,
+      note: 'Flat $0.10/item with a $100 monthly minimum.',
+    },
+    {
+      name: 'B',
+      monthlyBase: 1_000,
+      includedItems: 20_000,
+      additionalItem: 0.05,
+      note: 'Cheaper than A above ~10,000 items/mo — $0.05/item.',
+    },
+    {
+      name: 'C',
+      monthlyBase: 10_000,
+      includedItems: 400_000,
+      additionalItem: 0.025,
+      note: 'Cheaper than B above ~200,000 items/mo — $0.025/item. Includes custom language development.',
+    },
+  ] as PricingPlan[],
+  /** Value delivered at every tier — the agent-accessibility surface. */
+  included: [
+    {
+      title: 'Immediate visibility',
+      body: 'Graffiticode is a registered MCP server across the major agent registries. Your product surfaces in agent tool discovery on day one — no registry submissions or discovery engineering on your side.',
+    },
+    {
+      title: 'Reliability',
+      body: '~99% first-try success on item creation. The compiler enforces valid structure, so an agent gets a working artifact instead of plausible-but-broken output — which keeps it reaching for your product.',
+    },
+    {
+      title: 'Safety',
+      body: 'A capability-based security model gives you fine-grained control over what an agent can do and when. Agents operate strictly inside the guardrails you set — permissioned, scoped, and observable.',
+    },
+    {
+      title: 'Versioning',
+      body: 'Every change is recorded and reversible. Agent-driven edits are fully auditable and safe to undo — what makes granting an agent write-access to a production product sane.',
+    },
+  ],
+}
+
 export const TOOLS: McpTool[] = [
   {
     name: 'list_languages',

@@ -4,7 +4,6 @@ export const primaryNav = [
   { title: 'Quickstart', href: '/agents' },
   { title: 'Tools', href: '/languages' },
   { title: 'Pricing', href: '/pricing' },
-  { title: 'Build a tool', href: '/build' },
 ]
 
 export const externalNav = [

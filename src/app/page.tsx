@@ -159,20 +159,6 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* Build a tool (secondary) */}
-      <section className="border-t border-white/10 py-16">
-        <Container className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h2 className="text-xl font-semibold text-sand-50">Have domain expertise worth a tool?</h2>
-            <p className="mt-1 max-w-xl text-sm text-sand-400">
-              Turn your domain into a smart tool that serves both agents and the people who use them.
-            </p>
-          </div>
-          <Button href="/build" variant="secondary">
-            Build a tool →
-          </Button>
-        </Container>
-      </section>
     </>
   )
 }

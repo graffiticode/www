@@ -79,10 +79,11 @@ export default function HomePage() {
 
           <div>
             <Embed id={featured.showcaseTaskId} title={`${featured.name} — made with one MCP call`} scale={featured.embedScale ?? 1} ratio={featured.embedRatio} />
-            <p className="mt-3 text-center text-sm text-sand-400">
+            {/* div, not p: PromptDialog renders a <dialog>, invalid inside <p>. */}
+            <div className="mt-3 text-center text-sm text-sand-400">
               An agent made this with one call.{' '}
               <PromptDialog language={featured.id} prompt={featured.examplePrompt} />
-            </p>
+            </div>
           </div>
         </Container>
       </section>

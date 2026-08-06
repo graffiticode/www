@@ -62,7 +62,7 @@ export const FREE_PLAN = {
 }
 
 export interface PricingPlan {
-  /** Display name, e.g. "Free", "Silver". */
+  /** Display name, e.g. "Bronze", "Silver". */
   name: string
   /** Monthly base charge in USD. */
   monthlyBase: number
@@ -70,7 +70,9 @@ export interface PricingPlan {
   includedItems: number
   /** Per-item price beyond the included bucket in USD, or null when overage isn't offered. */
   additionalItem: number | null
-  /** Whether this is the free on-ramp tier. */
+  /** Qualifier shown under the per-item rate when overage isn't automatic. */
+  additionalItemNote?: string
+  /** Whether this is the zero-base on-ramp tier (drives the "on-ramp" badge and card styling). */
   free?: boolean
   /** One-line positioning shown on the plan card. */
   note: string
@@ -83,44 +85,63 @@ export interface PricingPrinciple {
 }
 
 /** Per-audience framing for the pricing page. The plans/rates are shared; only
- * the surrounding story changes between vendors and consumers. */
+ * the surrounding story changes between service providers and agents. */
 export interface PricingAudience {
-  /** Toggle label + hero eyebrow, e.g. "For vendors". */
+  /** Toggle label + hero eyebrow, e.g. "For service providers". */
   eyebrow: string
   title: string
   lead: string
-  /** Consumer-only: the one-card explanation of sponsored vs unsponsored. */
+  /** Agent-only: the one-card explanation of sponsored vs unsponsored. */
   sponsorship?: PricingPrinciple
   principles: PricingPrinciple[]
   plansHeading: string
   plansIntro: string
-  /** Show the vendor-only "Included at every tier" section. */
+  /** Show the service-provider-only "Included at every tier" section. */
   showIncluded: boolean
-  /** Show the vendor-only "Custom language development" section. */
+  /** Show the service-provider-only "Custom language development" section. */
   showCustom: boolean
 }
 
 /**
- * Usage-based pricing. Facts here mirror the ArtCompiler price sheet
+ * Usage-based pricing.
+ *
+ * SOURCE OF TRUTH: console/src/lib/plans-config.ts (`PLANS`). Every number
+ * below — base price, includedItems, overageRatePerItem, display name — is a
+ * HAND-MAINTAINED COPY of that file. This repo cannot import it, so the copy
+ * will silently drift the next time pricing moves: when a plan changes there,
+ * change it here in the same pass. Customer-facing card copy that has already
+ * been through review lives in console/src/utils/plans.ts; the reasoning
+ * (billable item, Bronze's two states, arrears overage) is in
+ * console/docs/item-based-pricing.md.
+ *
+ * Facts here also mirror the ArtCompiler price sheet
  * (marketing/artcompiler-price-sheet.md). Internal economics — margins,
  * break-even, the pricing calculator — are deliberately NOT projected here;
  * this file only carries what the public pricing page is allowed to show.
  *
- * NOTE: the consumer sponsored/unsponsored dimension (PRICING.audiences.consumer)
+ * NOTE: the agent sponsored/unsponsored dimension (PRICING.audiences.agent)
  * is new vocabulary not yet in the price sheet — mirror it back into
- * marketing/artcompiler-price-sheet.md when that sheet gains a consumer section.
+ * marketing/artcompiler-price-sheet.md when that sheet gains an agent section.
  */
 export const PRICING = {
   /** A "successful item" is billable; failures, reads, and iteration are free. */
   billableUnit: 'successful item',
   plans: [
     {
-      name: 'Free',
+      // Named "Free" until pay-as-you-go landed; still the same $0 tier (internal
+      // id `demo`). `free: true` keeps the zero-cost signal prominent — the word
+      // "free" doing that job is why the console kept it in the Bronze copy too.
+      name: 'Bronze',
       monthlyBase: 0,
       includedItems: 50,
-      additionalItem: null,
+      // DELIBERATELY dearer per item than Silver's $0.10. Pay-as-you-go is the
+      // bridge past the 50-item wall, not a cheaper substitute for a
+      // subscription. If the page ever shows a per-item ladder, this inversion
+      // is intentional — do not "correct" it.
+      additionalItem: 0.2,
+      additionalItemNote: 'Requires a card on file and a monthly spend cap.',
       free: true,
-      note: 'The on-ramp — stand up the surface and see it work. Hard cap at 50 items/mo; move to Silver to go further.',
+      note: 'The on-ramp — free to start, no credit card. Add a card and set a monthly spend cap to keep creating past 50; move to Silver when volume makes the flat rate cheaper.',
     },
     {
       name: 'Silver',
@@ -165,8 +186,8 @@ export const PRICING = {
   ],
   /** Per-audience framing. The plans above are shared across both. */
   audiences: {
-    vendor: {
-      eyebrow: 'For vendors',
+    serviceProvider: {
+      eyebrow: 'For service providers',
       title: 'Agent-accessibility for your product',
       lead: 'You bring the product; we make it something an AI agent can drive — reliably, safely, and inside your guardrails. You pay for usage, not a subscription. The bill scales with adoption — no upfront commitment, no seat licenses to forecast.',
       principles: [
@@ -179,31 +200,31 @@ export const PRICING = {
           body: 'Refining an item — as many revisions as it takes to get it right — is part of creating it, not a separate charge. Reads and retrievals are always free.',
         },
         {
-          title: 'You own the customer',
+          title: 'You own the customer relationship',
           body: 'Your customers authenticate with your credentials and never see Artcompiler. Pass our fee through, bundle it, or resell agentic authoring as a premium feature.',
         },
       ],
       plansHeading: 'Plans',
-      plansIntro: 'Each paid plan is a flat per-item rate with a monthly minimum — the included bucket is priced at the same rate as additional items, so there’s no penalty for going over. Move up a plan exactly when it lowers your per-item cost.',
+      plansIntro: 'Each paid plan is a flat per-item rate with a monthly minimum — the included bucket is priced at the same rate as additional items, so there’s no penalty for going over. Move up a plan exactly when it lowers your per-item cost. Bronze’s pay-as-you-go rate is higher by design: it’s the bridge past the first 50 items, not a way to stay below a subscription.',
       showIncluded: true,
       showCustom: true,
     },
-    consumer: {
-      eyebrow: 'For consumers',
+    agent: {
+      eyebrow: 'For agents',
       title: 'Create with agent-driven tools',
-      lead: 'Sponsored tools cost you nothing. You pay only for what a vendor hasn’t already covered — at the same rates, with your first 50 items free every month.',
+      lead: 'Sponsored tools cost you nothing. You pay only for what a service provider hasn’t already covered — at the same rates, with your first 50 items free every month.',
       sponsorship: {
         title: 'Sponsored items are free',
-        body: 'Many Graffiticode tools are sponsored by the vendor who built them — everything you create with a sponsored tool is free to you. You pay only for unsponsored items, and only at the per-item rates below.',
+        body: 'Many Graffiticode tools are sponsored by the service provider that built them — everything you create with a sponsored tool is free to you. You pay only for unsponsored items, and only at the per-item rates below.',
       },
       principles: [
         {
           title: 'No setup, no cap',
-          body: 'If a vendor sponsors the tool you’re using, every item you create with it is free — no cap, and nothing to set up on your side.',
+          body: 'If a service provider sponsors the tool you’re using, every item you create with it is free — no cap, and nothing to set up on your side.',
         },
         {
           title: 'Unsponsored items, same rates',
-          body: 'For tools no vendor covers, you pay the same per-item rates as everyone else. Your first 50 items each month are free.',
+          body: 'For tools no service provider covers, you pay the same per-item rates as everyone else. Your first 50 items each month are free — no credit card to start. To create past 50, add a card and set a monthly spend cap, so you can never be billed more than you chose.',
         },
         {
           title: 'Iteration & reads are free',

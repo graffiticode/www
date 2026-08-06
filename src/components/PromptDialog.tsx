@@ -9,6 +9,11 @@ import { track } from '@/lib/analytics'
  * A text-link trigger that opens a modal showing the exact create_item call
  * that produced the embedded artifact. Uses the native <dialog> element
  * (Escape-to-close, backdrop) — no dependencies.
+ *
+ * Placement constraint: this renders a <dialog> next to its trigger, and
+ * <dialog> is not phrasing content — so the caller must NOT put it inside a
+ * <p>. Doing so makes the browser close the paragraph early and React throws a
+ * hydration mismatch. Wrap inline usages in a <div> instead.
  */
 export function PromptDialog({
   language,

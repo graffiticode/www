@@ -16,12 +16,12 @@ function H2({ children }: { children: React.ReactNode }) {
 
 type AudienceKey = keyof typeof PRICING.audiences
 
-const AUDIENCE_ORDER: AudienceKey[] = ['vendor', 'consumer']
+const AUDIENCE_ORDER: AudienceKey[] = ['serviceProvider', 'agent']
 
 export function PricingView() {
-  const [audience, setAudience] = useState<AudienceKey>('vendor')
+  const [audience, setAudience] = useState<AudienceKey>('serviceProvider')
   const view: PricingAudience = PRICING.audiences[audience]
-  const isConsumer = audience === 'consumer'
+  const isAgent = audience === 'agent'
 
   return (
     <Container className="py-16">
@@ -49,7 +49,7 @@ export function PricingView() {
       <h1 className="mt-2 text-3xl font-semibold tracking-tight text-sand-50">{view.title}</h1>
       <p className="mt-4 max-w-2xl text-lg text-sand-300">{view.lead}</p>
 
-      {/* Sponsorship callout (consumer only) */}
+      {/* Sponsorship callout (agent only) */}
       {view.sponsorship && (
         <div className="mt-8 rounded-xl border border-brand/30 bg-brand/5 p-5">
           <h2 className="font-semibold text-brand-clay">{view.sponsorship.title}</h2>
@@ -103,21 +103,24 @@ export function PricingView() {
                 </dd>
               </div>
             </dl>
+            {plan.additionalItemNote && (
+              <p className="mt-2 text-xs text-sand-500">{plan.additionalItemNote}</p>
+            )}
             <p className="mt-4 border-t border-white/10 pt-4 text-sm text-sand-400">{plan.note}</p>
           </div>
         ))}
       </div>
 
-      {/* Worked example (vendor only) */}
-      {!isConsumer && (
+      {/* Worked example (service provider only) */}
+      {!isAgent && (
         <p className="mt-6 max-w-2xl text-sm text-sand-500">
-          Example: a vendor whose customers create 20,000 items in a month pays {usd(1000)} on Gold (
+          Example: a service provider seeing 20,000 items created in a month pays {usd(1000)} on Gold (
           {perItem(0.05)}/item). At 100,000 items, still {usd(5000)} on Gold. At 500,000 items, {usd(12500)} on
           Platinum.
         </p>
       )}
 
-      {/* Included at every tier (vendor only) */}
+      {/* Included at every tier (service provider only) */}
       {view.showIncluded && (
         <>
           <H2>Included at every tier</H2>
@@ -135,7 +138,7 @@ export function PricingView() {
         </>
       )}
 
-      {/* Custom language development (vendor only) */}
+      {/* Custom language development (service provider only) */}
       {view.showCustom && (
         <>
           <H2>Custom language development</H2>
@@ -161,16 +164,16 @@ export function PricingView() {
       {/* CTA */}
       <div className="mt-14 rounded-xl border border-white/10 bg-zinc-900/50 p-6">
         <h2 className="text-lg font-semibold text-sand-50">
-          {isConsumer ? 'Start free — sponsored tools cost nothing' : 'Start free, or get a tailored quote'}
+          {isAgent ? 'Start free — sponsored tools cost nothing' : 'Start free, or get a tailored quote'}
         </h2>
         <p className="mt-1 max-w-xl text-sm text-sand-400">
-          {isConsumer
+          {isAgent
             ? 'No credential needed — connect an agent and start creating. Sponsored tools are free, and your first 50 unsponsored items each month are too.'
-            : 'The Free tier needs no credential — connect an agent and create your first 50 items at no cost. For higher volume or a custom language, reach out.'}
+            : 'Bronze is free to start — no credential, no credit card. Connect an agent and create your first 50 items at no cost. For higher volume or a custom language, reach out.'}
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
           <Button href="/agents">Start free →</Button>
-          {!isConsumer && (
+          {!isAgent && (
             <Button
               href="mailto:jeff@artcompiler.com?subject=Graffiticode%20pricing"
               variant="secondary"
@@ -182,7 +185,7 @@ export function PricingView() {
         </div>
       </div>
 
-      {!isConsumer && (
+      {!isAgent && (
         <p className="mt-8 max-w-2xl text-xs text-sand-500">
           Billing is metered to your tenant and delivered as a single monthly invoice. Early accounts start pure
           pay-as-you-go; committed-use terms are available as usage matures.

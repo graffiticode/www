@@ -49,10 +49,11 @@ export default async function LanguagePage({ params }: { params: Promise<{ id: s
         <div>
           <h2 className="text-sm font-medium text-sand-400">Live example</h2>
           <Embed className="mt-2" id={lang.showcaseTaskId} title={`${lang.name} (${lang.id})`} scale={lang.embedScale ?? 1} ratio={lang.embedRatio} />
-          <p className="mt-3 text-sm text-sand-400">
+          {/* div, not p: PromptDialog renders a <dialog>, invalid inside <p>. */}
+          <div className="mt-3 text-sm text-sand-400">
             An agent made this with one call.{' '}
             <PromptDialog language={lang.id} prompt={lang.examplePrompt} />
-          </p>
+          </div>
         </div>
 
         <div>

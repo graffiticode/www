@@ -43,11 +43,11 @@ Consequence: **if a fact is wrong, it is wrong once, in `contract.ts`.** Never e
 
 ## Pricing
 
-`PRICING` in `contract.ts` drives `/pricing`. Structure: shared `plans` (Free / Silver / Gold / Platinum, each a flat per-item rate with a monthly minimum) plus `audiences.vendor` and `audiences.consumer` — two framings of the *same* rates, switched by a client-side toggle in `src/app/pricing/PricingView.tsx`. `showIncluded` / `showCustom` flags on an audience gate the vendor-only sections.
+`PRICING` in `contract.ts` drives `/pricing`. Structure: shared `plans` (Free / Silver / Gold / Platinum, each a flat per-item rate with a monthly minimum) plus `audiences.serviceProvider` and `audiences.agent` — two framings of the *same* rates, switched by a client-side toggle in `src/app/pricing/PricingView.tsx`. `showIncluded` / `showCustom` flags on an audience gate the service-provider-only sections.
 
 Two rules specific to this data:
 - The public page may only show what the contract carries. Internal economics (margins, break-even, the pricing calculator) are deliberately **not** projected here.
-- The plan facts mirror the external `marketing/artcompiler-price-sheet.md`; the consumer sponsored/unsponsored vocabulary is newer than that sheet. Keep the two in sync when either changes.
+- The plan facts mirror the external `marketing/artcompiler-price-sheet.md`; the agent sponsored/unsponsored vocabulary is newer than that sheet (which still says "clients"). Keep the two in sync when either changes.
 
 ## Showcase items (live embeds)
 

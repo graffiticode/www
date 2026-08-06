@@ -16,10 +16,10 @@ function H2({ children }: { children: React.ReactNode }) {
 
 type AudienceKey = keyof typeof PRICING.audiences
 
-const AUDIENCE_ORDER: AudienceKey[] = ['serviceProvider', 'agent']
+const AUDIENCE_ORDER: AudienceKey[] = ['agent', 'serviceProvider']
 
 export function PricingView() {
-  const [audience, setAudience] = useState<AudienceKey>('serviceProvider')
+  const [audience, setAudience] = useState<AudienceKey>('agent')
   const view: PricingAudience = PRICING.audiences[audience]
   const isAgent = audience === 'agent'
 

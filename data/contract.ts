@@ -202,7 +202,7 @@ export const PRICING = {
       // Note deliberately makes no cross-tier comparison: partners see this card
       // alone, so "cheaper than Gold" would point at a tier that isn't on screen.
       // The agent view carries the crossover math in `plansFootnote` instead.
-      note: 'The partner engagement — our lowest per-item rate at $0.025, and it includes custom language development at no separate build fee.',
+      note: 'The partner engagement — our lowest per-item rate at $0.025, and it includes custom language development with no additional fee.',
     },
   ] as PricingPlan[],
   /** What the agent-accessibility surface delivers, whatever the volume. */

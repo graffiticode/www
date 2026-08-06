@@ -43,11 +43,16 @@ Consequence: **if a fact is wrong, it is wrong once, in `contract.ts`.** Never e
 
 ## Pricing
 
-`PRICING` in `contract.ts` drives `/pricing`. Structure: shared `plans` (Free / Silver / Gold / Platinum, each a flat per-item rate with a monthly minimum) plus `audiences.serviceProvider` and `audiences.agent` — two framings of the *same* rates, switched by a client-side toggle in `src/app/pricing/PricingView.tsx`. `showIncluded` / `showCustom` flags on an audience gate the service-provider-only sections.
+`PRICING` in `contract.ts` drives `/pricing`. Structure: one shared `plans` ladder (Bronze / Silver / Gold / Platinum) plus `audiences.agent` and `audiences.partner`, switched by a client-side toggle in `src/app/pricing/PricingView.tsx`.
 
-Two rules specific to this data:
+An audience does not carry its own plans — it names the subset it shows in `planNames`, and the view *filters* the shared ladder so the canonical low-to-high order can't be reordered per audience. Agents see all four; **partners see Platinum only**, because Platinum is the language-development engagement. Plan *names* match `console/src/lib/plans-config.ts` on both surfaces — the audience split is in the framing, not the vocabulary.
+
+`contract.ts` owns prose as well as facts. `PRICING.included` and `PRICING.languageService` are standing sections with their own `heading`/`lead`/`items`; the `showIncluded` / `showLanguageService` flags on an audience are **visibility switches only** — don't re-add copy to the JSX behind them. Section *order* differs per audience and is the one thing that does live in `PricingView.tsx` (partners lead with the service, agents with the price ladder).
+
+Three rules specific to this data:
 - The public page may only show what the contract carries. Internal economics (margins, break-even, the pricing calculator) are deliberately **not** projected here.
-- The plan facts mirror the external `marketing/artcompiler-price-sheet.md`; the agent sponsored/unsponsored vocabulary is newer than that sheet (which still says "clients"). Keep the two in sync when either changes.
+- The plan facts mirror the external `marketing/artcompiler-price-sheet.md` (which still says "clients"). Keep the two in sync when either changes.
+- `languageService.terms` are a **public commitment**, not marketing copy — unlimited requests, one worked at a time, pause or cancel any month. Don't add a turnaround figure unless it's one we can hold to.
 
 ## Showcase items (live embeds)
 

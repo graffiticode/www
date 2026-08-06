@@ -61,9 +61,13 @@ export const FREE_PLAN = {
     'No credential is required to try Graffiticode. Call the MCP server with no Authorization header and your work is scoped to your MCP session. Pass a Bearer token only to use your own account (gc_…) or OAuth.',
 }
 
+/** The plan ladder, low to high. A union so an audience can't name a plan that
+ * doesn't exist — a typo is a compile error, not a silently empty grid. */
+export type PricingPlanName = 'Bronze' | 'Silver' | 'Gold' | 'Platinum'
+
 export interface PricingPlan {
   /** Display name, e.g. "Bronze", "Silver". */
-  name: string
+  name: PricingPlanName
   /** Monthly base charge in USD. */
   monthlyBase: number
   /** Included successful items per month. */
@@ -84,22 +88,49 @@ export interface PricingPrinciple {
   body: string
 }
 
-/** Per-audience framing for the pricing page. The plans/rates are shared; only
- * the surrounding story changes between service providers and agents. */
+/** A standing page section: heading + lead + titled blocks. The prose lives
+ * here rather than in JSX so the page stays a projection of this file. */
+export interface PricingSection {
+  heading: string
+  lead: string
+  items: PricingPrinciple[]
+}
+
+/** The language-development offer. A productized service, not a retainer:
+ * unlimited requests worked one at a time from a queue the partner prioritizes. */
+export interface PricingLanguageService extends PricingSection {
+  /** Fine print, one line each. */
+  terms: string[]
+}
+
+export interface PricingCta {
+  title: string
+  body: string
+  secondary?: { label: string; href: string; external?: boolean }
+}
+
+/** Per-audience framing for the pricing page. The plans/rates are shared; each
+ * audience projects a subset of them and tells its own story around them. */
 export interface PricingAudience {
-  /** Toggle label + hero eyebrow, e.g. "For service providers". */
+  /** Toggle label + hero eyebrow, e.g. "For partners". */
   eyebrow: string
   title: string
   lead: string
-  /** Agent-only: the one-card explanation of sponsored vs unsponsored. */
-  sponsorship?: PricingPrinciple
   principles: PricingPrinciple[]
+  /** Which of the shared plans this audience shows, filtered out of
+   * PRICING.plans (so the ladder keeps its canonical low-to-high order). */
+  planNames: PricingPlanName[]
   plansHeading: string
   plansIntro: string
-  /** Show the service-provider-only "Included at every tier" section. */
+  /** Optional worked example printed under the plan grid. */
+  plansFootnote?: string
+  /** Visibility only — the prose lives in PRICING.included. */
   showIncluded: boolean
-  /** Show the service-provider-only "Custom language development" section. */
-  showCustom: boolean
+  /** Visibility only — the prose lives in PRICING.languageService. */
+  showLanguageService: boolean
+  cta: PricingCta
+  /** Optional invoicing fine print at the foot of the page. */
+  billingNote?: string
 }
 
 /**
@@ -119,9 +150,15 @@ export interface PricingAudience {
  * break-even, the pricing calculator — are deliberately NOT projected here;
  * this file only carries what the public pricing page is allowed to show.
  *
- * NOTE: the agent sponsored/unsponsored dimension (PRICING.audiences.agent)
- * is new vocabulary not yet in the price sheet — mirror it back into
- * marketing/artcompiler-price-sheet.md when that sheet gains an agent section.
+ * Two things here are projections, not plan data:
+ *   - Each audience shows a SUBSET of the ladder via `planNames`. Partners see
+ *     Platinum only (it is the language-development engagement); agents see all
+ *     four. The plans array itself stays a field-for-field mirror of plans-config,
+ *     names included — both surfaces call the top tier Platinum.
+ *   - `languageService` describes what Platinum buys. Its terms — unlimited
+ *     requests, one worked at a time, pause or cancel any month — are a PUBLIC
+ *     COMMITMENT, not just copy. Keep them in sync with the price sheet and the
+ *     console's plan copy, and don't add a turnaround figure we can't hold to.
  */
 export const PRICING = {
   /** A "successful item" is billable; failures, reads, and iteration are free. */
@@ -162,79 +199,132 @@ export const PRICING = {
       monthlyBase: 10_000,
       includedItems: 400_000,
       additionalItem: 0.025,
-      note: 'Cheaper than Gold above ~200,000 items/mo — $0.025/item. Includes custom language development.',
+      // Note deliberately makes no cross-tier comparison: partners see this card
+      // alone, so "cheaper than Gold" would point at a tier that isn't on screen.
+      // The agent view carries the crossover math in `plansFootnote` instead.
+      note: 'The partner engagement — our lowest per-item rate at $0.025, and it includes custom language development at no separate build fee.',
     },
   ] as PricingPlan[],
-  /** Value delivered at every tier — the agent-accessibility surface. */
-  included: [
-    {
-      title: 'Immediate visibility',
-      body: 'Graffiticode is a registered MCP server across the major agent registries. Your product surfaces in agent tool discovery on day one — no registry submissions or discovery engineering on your side.',
-    },
-    {
-      title: 'Reliability',
-      body: '~99% first-try success on item creation. The compiler enforces valid structure, so an agent gets a working artifact instead of plausible-but-broken output — which keeps it reaching for your product.',
-    },
-    {
-      title: 'Safety',
-      body: 'A capability-based security model gives you fine-grained control over what an agent can do and when. Agents operate strictly inside the guardrails you set — permissioned, scoped, and observable.',
-    },
-    {
-      title: 'Versioning',
-      body: 'Every change is recorded and reversible. Agent-driven edits are fully auditable and safe to undo — what makes granting an agent write-access to a production product sane.',
-    },
-  ],
-  /** Per-audience framing. The plans above are shared across both. */
+  /** What the agent-accessibility surface delivers, whatever the volume. */
+  included: {
+    heading: 'Included in every engagement',
+    lead: 'Every plan includes the full agent-accessibility surface for your product.',
+    items: [
+      {
+        title: 'Immediate visibility',
+        body: 'Graffiticode is a registered MCP server across the major agent registries. Your product surfaces in agent tool discovery on day one — no registry submissions or discovery engineering on your side.',
+      },
+      {
+        title: 'Reliability',
+        body: '~99% first-try success on item creation. The compiler enforces valid structure, so an agent gets a working artifact instead of plausible-but-broken output — which keeps it reaching for your product.',
+      },
+      {
+        title: 'Safety',
+        body: 'A capability-based security model gives you fine-grained control over what an agent can do and when. Agents operate strictly inside the guardrails you set — permissioned, scoped, and observable.',
+      },
+      {
+        title: 'Versioning',
+        body: 'Every change is recorded and reversible. Agent-driven edits are fully auditable and safe to undo — what makes granting an agent write-access to a production product sane.',
+      },
+    ],
+  } satisfies PricingSection,
+  /**
+   * The partner offer. Modelled on the productized-service firms that bill a
+   * flat monthly fee for a continuous stream of work: "unlimited" describes the
+   * requests and revisions, never the throughput. One request is active at a
+   * time and the partner sets the order — that limit is the whole reason the
+   * flat fee works, so it is stated plainly rather than buried as an internal cap.
+   */
+  languageService: {
+    heading: 'Custom language development',
+    lead: 'A bespoke agent surface tailored to your product — your data model, your item types, your workflows. This is the done-for-you build: we design and operate the language and skills that let agents drive your product natively, and keep them current as agent platforms evolve. It is what Platinum buys, with no separate build fee and no statement of work to negotiate.',
+    items: [
+      {
+        title: 'Unlimited requests',
+        body: 'Ask for as much as you need — a new item type, a change to the spec, a new capability, a revision to any of it. There is no request budget and no per-change quote, and revisions to the active request are unlimited.',
+      },
+      {
+        title: 'One at a time',
+        body: 'We work a single request at a time and start the next when the current one ships. That is what keeps a flat monthly fee honest: you are buying a continuous stream of work, not a promise of infinite parallel capacity.',
+      },
+      {
+        title: 'You set the priority',
+        body: 'Your queue, your order. Reorder it whenever the roadmap moves — whatever sits at the top is what we build next, and nothing needs re-scoping or re-contracting to change that.',
+      },
+    ],
+    terms: [
+      'Included at Platinum — no separate build fee.',
+      'Pause or cancel any month.',
+      'Early design-partner program: a limited number of partners on preferred terms, by invitation.',
+    ],
+  } satisfies PricingLanguageService,
+  /** Per-audience framing. The plans above are shared; each audience projects
+   * the subset named in `planNames`. */
   audiences: {
-    serviceProvider: {
-      eyebrow: 'For service providers',
-      title: 'Agent-accessibility for your product',
-      lead: 'You bring the product; we make it something an AI agent can drive — reliably, safely, and inside your guardrails. You pay for usage, not a subscription. The bill scales with adoption — no upfront commitment, no seat licenses to forecast.',
+    partner: {
+      eyebrow: 'For partners',
+      title: 'We build the language your product speaks',
+      lead: 'You bring the product; we make it something an AI agent can drive — reliably, safely, and inside your guardrails. Partnering is one flat monthly fee that buys both: the agent-accessibility surface, and the ongoing language development that keeps it fitted to your product as it changes.',
       principles: [
         {
-          title: 'Billed per successful item',
-          body: 'A successful item is a create request that returns a compiled, valid artifact. If it doesn’t produce a working result, you don’t pay for it.',
+          title: 'Development is the product',
+          body: 'The language and skills that let agents drive your product are not a one-off build we hand over. We design them, operate them, and keep revising them for as long as you are a partner.',
         },
         {
-          title: 'Iteration is included',
-          body: 'Refining an item — as many revisions as it takes to get it right — is part of creating it, not a separate charge. Reads and retrievals are always free.',
+          title: 'A continuous stream, not a project',
+          body: 'No statements of work, no change orders, no per-request quotes. Requests go in a queue you prioritize and we work them one at a time — so the roadmap can move without renegotiating anything.',
         },
         {
           title: 'You own the customer relationship',
           body: 'Your customers authenticate with your credentials and never see Artcompiler. Pass our fee through, bundle it, or resell agentic authoring as a premium feature.',
         },
       ],
-      plansHeading: 'Plans',
-      plansIntro: 'Each paid plan is a flat per-item rate with a monthly minimum — the included bucket is priced at the same rate as additional items, so there’s no penalty for going over. Move up a plan exactly when it lowers your per-item cost. Bronze’s pay-as-you-go rate is higher by design: it’s the bridge past the first 50 items, not a way to stay below a subscription.',
+      planNames: ['Platinum'],
+      plansHeading: 'What partnering costs',
+      plansIntro: 'One tier, one flat monthly fee. It covers 400,000 successful items a month and the language development that makes them worth creating — additional items bill at the lowest per-item rate we offer.',
       showIncluded: true,
-      showCustom: true,
+      showLanguageService: true,
+      cta: {
+        title: 'Talk to us about your product',
+        body: 'Partnering starts with a conversation about what your product does and what an agent would need to drive it. You can also connect an agent and create your first 50 items free, right now, to see the surface before you talk to anyone.',
+        secondary: {
+          label: 'Get a quote',
+          href: 'mailto:jeff@artcompiler.com?subject=Graffiticode%20partnership',
+          external: true,
+        },
+      },
+      billingNote:
+        'Billing is metered to your tenant and delivered as a single monthly invoice. Early accounts start pure pay-as-you-go; committed-use terms are available as usage matures.',
     },
     agent: {
       eyebrow: 'For agents',
       title: 'Create with agent-driven tools',
-      lead: 'Sponsored tools cost you nothing. You pay only for what a service provider hasn’t already covered — at the same rates, with your first 50 items free every month.',
-      sponsorship: {
-        title: 'Sponsored items are free',
-        body: 'Many Graffiticode tools are sponsored by the service provider that built them — everything you create with a sponsored tool is free to you. You pay only for unsponsored items, and only at the per-item rates below.',
-      },
+      lead: 'Connect an agent and start creating — no credential, no credit card. Your first 50 items each month are free; past that you pay per successful item, at a flat rate that falls as volume grows.',
       principles: [
         {
-          title: 'No setup, no cap',
-          body: 'If a service provider sponsors the tool you’re using, every item you create with it is free — no cap, and nothing to set up on your side.',
+          title: 'Billed per successful item',
+          body: 'A successful item is a create request that returns a compiled, valid artifact. If it doesn’t produce a working result, you don’t pay for it.',
         },
         {
-          title: 'Unsponsored items, same rates',
-          body: 'For tools no service provider covers, you pay the same per-item rates as everyone else. Your first 50 items each month are free — no credit card to start. To create past 50, add a card and set a monthly spend cap, so you can never be billed more than you chose.',
+          title: 'Free to start, capped by you',
+          body: 'Your first 50 items each month are free — no credit card to start. To create past 50, add a card and set a monthly spend cap, so you can never be billed more than you chose.',
         },
         {
           title: 'Iteration & reads are free',
           body: 'Refining an item is part of creating it, not a separate charge. Reading and retrieving items is always free.',
         },
       ],
-      plansHeading: 'Pricing for unsponsored items',
-      plansIntro: 'Unsponsored items use the same flat per-item tiers below — the included bucket is priced at the same rate as additional items, so there’s no penalty for going over.',
+      planNames: ['Bronze', 'Silver', 'Gold', 'Platinum'],
+      plansHeading: 'Plans',
+      plansIntro: 'Each paid plan is a flat per-item rate with a monthly minimum — the included bucket is priced at the same rate as additional items, so there’s no penalty for going over. Move up a plan exactly when it lowers your per-item cost. Bronze’s pay-as-you-go rate is higher by design: it’s the bridge past the first 50 items, not a way to stay below a subscription.',
+      plansFootnote:
+        'Example: 20,000 items in a month costs $1,000 on Gold ($0.05/item). At 100,000 items, still $5,000 on Gold. At 500,000 items, $12,500 on Platinum.',
       showIncluded: false,
-      showCustom: false,
+      showLanguageService: false,
+      cta: {
+        title: 'Start free',
+        body: 'No credential needed — connect an agent and start creating. Your first 50 items each month are free, and nothing is billed until you add a card and set a cap yourself.',
+      },
     },
   } satisfies Record<string, PricingAudience>,
 }

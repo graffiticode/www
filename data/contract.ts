@@ -70,6 +70,10 @@ export interface PricingPlan {
   name: PricingPlanName
   /** Monthly base charge in USD. */
   monthlyBase: number
+  /** Struck-through list price shown before `monthlyBase`, in USD. PRESENTATION
+   * ONLY — an anchor, with no counterpart in plans-config.ts or Stripe. Nothing
+   * ever bills at this figure, so it is not part of the plans-config mirror. */
+  listPrice?: number
   /** Included successful items per month. */
   includedItems: number
   /** Per-item price beyond the included bucket in USD, or null when overage isn't offered. */
@@ -169,6 +173,7 @@ export const PRICING = {
       // id `demo`). `free: true` keeps the zero-cost signal prominent — the word
       // "free" doing that job is why the console kept it in the Bronze copy too.
       name: 'Bronze',
+      listPrice: 10,
       monthlyBase: 0,
       includedItems: 50,
       // DELIBERATELY dearer per item than Silver's $0.10. Pay-as-you-go is the
@@ -176,9 +181,9 @@ export const PRICING = {
       // subscription. If the page ever shows a per-item ladder, this inversion
       // is intentional — do not "correct" it.
       additionalItem: 0.2,
-      additionalItemNote: 'Requires a card on file and a monthly spend cap.',
+      additionalItemNote: 'Additional items only: they require a card on file and a monthly spend cap. The included 50 need neither.',
       free: true,
-      note: 'The on-ramp — free to start, no credit card. Add a card and set a monthly spend cap to keep creating past 50; move to Silver when volume makes the flat rate cheaper.',
+      note: 'The on-ramp — the first 50 items each month are free, with no credit card and nothing to set up. A card is required only to create additional items, along with a monthly spend cap; move to Silver when volume makes the flat rate cheaper.',
     },
     {
       name: 'Silver',
@@ -307,7 +312,7 @@ export const PRICING = {
         },
         {
           title: 'Free to start, capped by you',
-          body: 'Your first 50 items each month are free — no credit card to start. To create past 50, add a card and set a monthly spend cap, so you can never be billed more than you chose.',
+          body: 'Your first 50 items each month are free, and need no credit card at all. A card is required only to create additional items — and only alongside a monthly spend cap, so you can never be billed more than you chose.',
         },
         {
           title: 'Iteration & reads are free',

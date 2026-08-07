@@ -38,7 +38,12 @@ function PlanCard({ plan }: { plan: PricingPlan }) {
           </span>
         )}
       </div>
-      <div className="mt-3 flex items-baseline gap-1">
+      <div className="mt-3 flex items-baseline gap-1.5">
+        {plan.listPrice !== undefined && (
+          <s className="text-xl font-medium text-sand-500 decoration-sand-500/70">
+            {usd(plan.listPrice)}
+          </s>
+        )}
         <span className="text-3xl font-semibold text-sand-50">{usd(plan.monthlyBase)}</span>
         <span className="text-sm text-sand-500">/mo</span>
       </div>

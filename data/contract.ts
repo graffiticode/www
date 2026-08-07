@@ -78,8 +78,6 @@ export interface PricingPlan {
   includedItems: number
   /** Per-item price beyond the included bucket in USD, or null when overage isn't offered. */
   additionalItem: number | null
-  /** Qualifier shown under the per-item rate when overage isn't automatic. */
-  additionalItemNote?: string
   /** Whether this is the zero-base on-ramp tier (drives the "on-ramp" badge and card styling). */
   free?: boolean
   /** One-line positioning shown on the plan card. */
@@ -181,9 +179,8 @@ export const PRICING = {
       // subscription. If the page ever shows a per-item ladder, this inversion
       // is intentional — do not "correct" it.
       additionalItem: 0.2,
-      additionalItemNote: 'Additional items only: they require a card on file and a monthly spend cap. The included 50 need neither.',
       free: true,
-      note: 'The on-ramp — the first 50 items each month are free, with no credit card and nothing to set up. A card is required only to create additional items, along with a monthly spend cap; move to Silver when volume makes the flat rate cheaper.',
+      note: 'The on-ramp — the first 50 items each month are free, with no credit card. A card is required only to create additional items, along with a monthly spend cap; move to Silver when volume makes the flat rate cheaper.',
     },
     {
       name: 'Silver',

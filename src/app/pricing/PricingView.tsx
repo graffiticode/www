@@ -59,9 +59,6 @@ function PlanCard({ plan }: { plan: PricingPlan }) {
           </dd>
         </div>
       </dl>
-      {plan.additionalItemNote && (
-        <p className="mt-2 text-xs text-sand-500">{plan.additionalItemNote}</p>
-      )}
       <p className="mt-4 border-t border-white/10 pt-4 text-sm text-sand-400">{plan.note}</p>
     </div>
   )

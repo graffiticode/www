@@ -342,6 +342,101 @@ export const PRICING = {
   } satisfies Record<string, PricingAudience>,
 }
 
+/**
+ * The service-partner narrative surface at /partners.
+ *
+ * Deliberately separate from PRICING: this is the story of who a partner is and
+ * what the first step looks like, not what it costs. The page renders
+ * PRICING.languageService for the Platinum terms rather than restating them, so
+ * there is exactly one description of the productized service.
+ *
+ * The first step is a *product-specific working session* — the canonical partner
+ * funnel event (marketing/graffiticode-funnel-and-omtm-contract.md). Nothing here
+ * may imply a fixed-scope proposal or a scoped build; that is not what we sell.
+ */
+export const PARTNERS = {
+  eyebrow: 'For partners',
+  title: 'Your product, drivable by an agent',
+  lead:
+    'Your customers are starting to work through agents instead of dashboards. The product an agent can drive is the product that gets used — and the one it can’t becomes a backend it guesses at or routes around. We make yours drivable, and keep it that way.',
+  qualifies: {
+    heading: 'Who this is for',
+    lead: 'Partnering fits an established product with something worth defending. Three traits matter more than your vertical.',
+    items: [
+      {
+        title: 'An incumbency worth defending',
+        body: 'You already have distribution, customers, and a trusted position inside other people’s platforms. That is exactly what makes an agent routing around you an existential problem rather than an academic one.',
+      },
+      {
+        title: 'A structured product surface',
+        body: 'An API, a content model, an item bank — something with real structure for an agent to drive. We do not need it to be tidy, but it has to exist.',
+      },
+      {
+        title: 'Customers already moving to agents',
+        body: 'Your authors, admins, and end users are starting to work through AI assistants. If that has not begun, the urgency is not there yet and we will say so.',
+      },
+    ],
+  } satisfies PricingSection,
+  exchange: {
+    heading: 'What each side brings',
+    lead: 'You are not buying a protocol. You are buying a designed, operated agent surface for your product.',
+    items: [
+      {
+        title: 'You bring the product',
+        body: 'The API or data model, the domain knowledge, the customer context, and a view of the workflows an agent should be able to drive. You keep the customer relationship throughout — your customers authenticate with your credentials and never see Artcompiler.',
+      },
+      {
+        title: 'We bring the language',
+        body: 'We design, operate, and keep revising the Graffiticode language and skills that make your product agent-drivable — intent-shaped tools rather than a one-to-one dump of your API, inside the permissions and guardrails you set.',
+      },
+    ],
+  } satisfies PricingSection,
+  /** The canonical first step. Prose only — no cards. */
+  session: {
+    heading: 'It starts with a working session',
+    lead: 'The first step is not a proposal. It is 30 minutes against your real product: we run a live agent at a sandbox, work through the two or three jobs you most want an agent to do, and find out what it would actually take. What comes out is a language brief — what agents should be able to do inside your product, in priority order. If the answer is that this is premature for you, that is a legitimate outcome and you will hear it from us.',
+  },
+  path: {
+    heading: 'From session to agents using it',
+    lead: 'Five steps, and only the first needs a decision from you.',
+    items: [
+      {
+        title: 'Product-specific working session',
+        body: 'A live agent against your sandbox, and an honest read on what an agent could drive today.',
+      },
+      {
+        title: 'Language brief',
+        body: 'What agents should be able to do inside your product, in the order you want it. Written down, agreed, and revisable.',
+      },
+      {
+        title: 'Engagement starts',
+        body: 'The monthly engagement begins and your request queue opens. No statement of work to negotiate first.',
+      },
+      {
+        title: 'First language live',
+        body: 'Your language is deployed and callable through the MCP endpoint agents already reach.',
+      },
+      {
+        title: 'External agents using it',
+        body: 'A real agent completes a real task inside your product. That is the moment this has worked — everything before it is progress.',
+      },
+    ],
+  } satisfies PricingSection,
+  cta: {
+    title: 'Ask for a working session',
+    body: 'Tell us what your product does and what you would want an agent to be able to do with it. If it is a fit we will run the session against your sandbox; if it is not, we will tell you that instead.',
+    primary: {
+      label: 'Request a session →',
+      href: 'mailto:jeff@artcompiler.com?subject=Graffiticode%20partner%20working%20session',
+      external: true,
+    },
+    // `external: false` is explicit so the renderer can read `.external` off the
+    // literal — `satisfies` preserves literal types, so an omitted optional is
+    // absent from the type, not undefined.
+    secondary: { label: 'What partnering costs', href: '/pricing', external: false },
+  } satisfies PricingCta,
+}
+
 export const TOOLS: McpTool[] = [
   {
     name: 'list_languages',

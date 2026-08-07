@@ -78,6 +78,13 @@ Call list_languages from the MCP server for the live, authoritative list.
 - Console: ${CONSOLE_URL} — open any tool as an interactive app.
 - Forum: ${FORUM_URL} — community Q&A, language showcases, governance.
 
+## For Software Providers
+
+If you build a product you want agents to be able to drive, we design and operate
+the Graffiticode language that makes it drivable.
+
+- ${SITE_URL}/partners — what partnering involves and how it starts.
+
 ## License
 
 Source code: MIT. Documentation content: CC-BY 4.0. Materials may be used for

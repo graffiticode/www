@@ -41,10 +41,10 @@ npm run build        # prebuild generates discovery files, then next build
 
 ## Showcase items (live embeds)
 
-Each language can carry a `showcaseItemId` in `data/languages.json` — a real item created via the MCP
+Each language can carry a `showcaseTaskId` in `data/languages.json` — a real item created via the MCP
 server, embedded as living proof. When it's `null`, the embed shows an honest "coming online"
-placeholder. To populate: create items with `create_item`, then drop the returned ids into
-`data/languages.json` (no code change needed).
+placeholder. To populate: create items with `create_item`, then drop the returned **task** id (a base64
+`{"taskIds":[…]}` string, not a raw item id) into `data/languages.json` (no code change needed).
 
 ## Deploy
 

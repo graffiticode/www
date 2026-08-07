@@ -105,10 +105,19 @@ export interface PricingLanguageService extends PricingSection {
   terms: string[]
 }
 
+export interface PricingLink {
+  label: string
+  href: string
+  external?: boolean
+}
+
 export interface PricingCta {
   title: string
   body: string
-  secondary?: { label: string; href: string; external?: boolean }
+  /** The action this audience should take. Partners are asked to talk to us;
+   * agents are asked to start free. Never hard-code either in the view. */
+  primary: PricingLink
+  secondary?: PricingLink
 }
 
 /** Per-audience framing for the pricing page. The plans/rates are shared; each
@@ -210,7 +219,7 @@ export const PRICING = {
   /** What the agent-accessibility surface delivers, whatever the volume. */
   included: {
     heading: 'Included in every engagement',
-    lead: 'Every plan includes the full agent-accessibility surface for your product.',
+    lead: 'Whatever the volume, partnering includes the full agent-accessibility surface for your product.',
     items: [
       {
         title: 'Immediate visibility',
@@ -289,14 +298,15 @@ export const PRICING = {
       cta: {
         title: 'Talk to us about your product',
         body: 'Partnering starts with a conversation about what your product does and what an agent would need to drive it. You can also connect an agent and create your first 50 items free, right now, to see the surface before you talk to anyone.',
-        secondary: {
-          label: 'Get a quote',
+        primary: {
+          label: 'Talk to us →',
           href: 'mailto:jeff@artcompiler.com?subject=Graffiticode%20partnership',
           external: true,
         },
+        secondary: { label: 'Try it free', href: '/agents' },
       },
       billingNote:
-        'Billing is metered to your tenant and delivered as a single monthly invoice. Early accounts start pure pay-as-you-go; committed-use terms are available as usage matures.',
+        'The monthly fee is billed in advance and delivered as a single invoice, with any additional items metered to your tenant and billed in arrears. Committed-use terms are available as the engagement matures.',
     },
     agent: {
       eyebrow: 'For agents',
@@ -326,6 +336,7 @@ export const PRICING = {
       cta: {
         title: 'Start free',
         body: 'No credential needed — connect an agent and start creating. Your first 50 items each month are free, and nothing is billed until you add a card and set a cap yourself.',
+        primary: { label: 'Start free →', href: '/agents' },
       },
     },
   } satisfies Record<string, PricingAudience>,

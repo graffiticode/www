@@ -197,7 +197,9 @@ export function PricingView() {
         <h2 className="text-lg font-semibold text-sand-50">{view.cta.title}</h2>
         <p className="mt-1 max-w-xl text-sm text-sand-400">{view.cta.body}</p>
         <div className="mt-4 flex flex-wrap gap-3">
-          <Button href="/agents">Start free →</Button>
+          <Button href={view.cta.primary.href} external={view.cta.primary.external}>
+            {view.cta.primary.label}
+          </Button>
           {view.cta.secondary && (
             <Button
               href={view.cta.secondary.href}

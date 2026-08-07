@@ -68,7 +68,11 @@ type AudienceKey = keyof typeof PRICING.audiences
 
 const AUDIENCE_ORDER: AudienceKey[] = ['agent', 'partner']
 
-/** Rendered when the URL carries no `?audience=` — a bare /pricing visit. */
+/**
+ * Rendered when the URL carries no `?audience=`. Every link on this site names
+ * one, so a bare /pricing only arrives from outside — a typed URL, a search
+ * result, an old share.
+ */
 const DEFAULT_AUDIENCE: AudienceKey = 'agent'
 
 const isAudienceKey = (v: string | null): v is AudienceKey =>

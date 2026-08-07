@@ -68,7 +68,7 @@ type AudienceKey = keyof typeof PRICING.audiences
 
 const AUDIENCE_ORDER: AudienceKey[] = ['agent', 'partner']
 
-/** Rendered when no `?audience=` is present, and represented by its absence. */
+/** Rendered when the URL carries no `?audience=` — a bare /pricing visit. */
 const DEFAULT_AUDIENCE: AudienceKey = 'agent'
 
 const isAudienceKey = (v: string | null): v is AudienceKey =>
@@ -82,17 +82,16 @@ export function PricingView() {
   // latter would need a Suspense boundary, whose fallback becomes the
   // prerendered HTML, and this page's static content is worth keeping.
   // Keep the URL in step with the visible tab, so copying the address shares
-  // what the reader is actually looking at. The default audience is expressed
-  // as the *absence* of the param, which keeps /pricing clean for the common
-  // case. replaceState, not the router: a tab switch is not a navigation and
+  // what the reader is actually looking at. Both audiences write an explicit
+  // param — `?audience=agent` is not dropped as redundant, so the two tabs
+  // behave identically and a shared link always states its audience.
+  // replaceState, not the router: a tab switch is not a navigation and
   // shouldn't cost a Back press.
   function choose(key: AudienceKey) {
     setAudience(key)
     const url = new URL(window.location.href)
-    const next = key === DEFAULT_AUDIENCE ? null : key
-    if (url.searchParams.get('audience') === next) return
-    if (next === null) url.searchParams.delete('audience')
-    else url.searchParams.set('audience', next)
+    if (url.searchParams.get('audience') === key) return
+    url.searchParams.set('audience', key)
     window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`)
   }
 

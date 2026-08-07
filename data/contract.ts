@@ -433,7 +433,9 @@ export const PARTNERS = {
     // `external: false` is explicit so the renderer can read `.external` off the
     // literal — `satisfies` preserves literal types, so an omitted optional is
     // absent from the type, not undefined.
-    secondary: { label: 'What partnering costs', href: '/pricing', external: false },
+    // ?audience=partner opens /pricing on the partner tab rather than the
+    // agent default — PricingView reads it on mount.
+    secondary: { label: 'What partnering costs', href: '/pricing?audience=partner', external: false },
   } satisfies PricingCta,
 }
 

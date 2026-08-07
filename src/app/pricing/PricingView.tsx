@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Container } from '@/components/Container'
 import { Button } from '@/components/Button'
@@ -68,8 +68,32 @@ type AudienceKey = keyof typeof PRICING.audiences
 
 const AUDIENCE_ORDER: AudienceKey[] = ['agent', 'partner']
 
+const isAudienceKey = (v: string | null): v is AudienceKey =>
+  v !== null && Object.prototype.hasOwnProperty.call(PRICING.audiences, v)
+
 export function PricingView() {
   const [audience, setAudience] = useState<AudienceKey>('agent')
+
+  // `/pricing?audience=partner` opens on the partner tab — the link the
+  // /partners page uses. Read from window rather than useSearchParams: the
+  // latter would need a Suspense boundary, whose fallback becomes the
+  // prerendered HTML, and this page's static content is worth keeping.
+  // Switching to the default audience drops `?audience=…` so the URL stops
+  // claiming a tab the reader is no longer on. replaceState, not the router:
+  // a tab switch is not a navigation and shouldn't cost a Back press.
+  function choose(key: AudienceKey) {
+    setAudience(key)
+    if (key !== 'agent') return
+    const url = new URL(window.location.href)
+    if (!url.searchParams.has('audience')) return
+    url.searchParams.delete('audience')
+    window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`)
+  }
+
+  useEffect(() => {
+    const requested = new URLSearchParams(window.location.search).get('audience')
+    if (isAudienceKey(requested)) setAudience(requested)
+  }, [])
   const view: PricingAudience = PRICING.audiences[audience]
   // Ordering only — every piece of *content* is driven by contract fields.
   const isPartner = audience === 'partner'
@@ -152,7 +176,7 @@ export function PricingView() {
           <button
             key={key}
             type="button"
-            onClick={() => setAudience(key)}
+            onClick={() => choose(key)}
             aria-pressed={audience === key}
             className={`rounded-md px-3 py-1.5 font-medium transition ${
               audience === key

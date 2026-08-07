@@ -68,25 +68,31 @@ type AudienceKey = keyof typeof PRICING.audiences
 
 const AUDIENCE_ORDER: AudienceKey[] = ['agent', 'partner']
 
+/** Rendered when no `?audience=` is present, and represented by its absence. */
+const DEFAULT_AUDIENCE: AudienceKey = 'agent'
+
 const isAudienceKey = (v: string | null): v is AudienceKey =>
   v !== null && Object.prototype.hasOwnProperty.call(PRICING.audiences, v)
 
 export function PricingView() {
-  const [audience, setAudience] = useState<AudienceKey>('agent')
+  const [audience, setAudience] = useState<AudienceKey>(DEFAULT_AUDIENCE)
 
   // `/pricing?audience=partner` opens on the partner tab — the link the
   // /partners page uses. Read from window rather than useSearchParams: the
   // latter would need a Suspense boundary, whose fallback becomes the
   // prerendered HTML, and this page's static content is worth keeping.
-  // Switching to the default audience drops `?audience=…` so the URL stops
-  // claiming a tab the reader is no longer on. replaceState, not the router:
-  // a tab switch is not a navigation and shouldn't cost a Back press.
+  // Keep the URL in step with the visible tab, so copying the address shares
+  // what the reader is actually looking at. The default audience is expressed
+  // as the *absence* of the param, which keeps /pricing clean for the common
+  // case. replaceState, not the router: a tab switch is not a navigation and
+  // shouldn't cost a Back press.
   function choose(key: AudienceKey) {
     setAudience(key)
-    if (key !== 'agent') return
     const url = new URL(window.location.href)
-    if (!url.searchParams.has('audience')) return
-    url.searchParams.delete('audience')
+    const next = key === DEFAULT_AUDIENCE ? null : key
+    if (url.searchParams.get('audience') === next) return
+    if (next === null) url.searchParams.delete('audience')
+    else url.searchParams.set('audience', next)
     window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`)
   }
 

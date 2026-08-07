@@ -122,7 +122,7 @@ export default function AgentsPage() {
           Source on GitHub
         </Button>
         <Button href={FORUM_URL} variant="secondary" external>
-          Forum
+          Community
         </Button>
       </div>
     </Container>

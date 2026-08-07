@@ -8,6 +8,6 @@ export const primaryNav = [
 
 export const externalNav = [
   { title: 'Console', href: CONSOLE_URL },
-  { title: 'Forum', href: FORUM_URL },
+  { title: 'Community', href: FORUM_URL },
   { title: 'GitHub', href: GITHUB_URL },
 ]

@@ -27,7 +27,7 @@ CI (`.github/workflows/ci.yml`) runs `npm ci` → `npm run build` → start on 4
 
 `data/contract.ts` + `data/languages.json` are the **only** place facts about the MCP endpoint, tools, free-plan terms, pricing, and the language registry live. Everything else is a projection:
 
-- **Site pages** (`src/app/page.tsx`, `agents/`, `languages/`, `languages/[id]/`, `pricing/`) import from `@data/contract` and render it.
+- **Site pages** (`src/app/page.tsx`, `agents/`, `languages/`, `languages/[id]/`, `partners/`, `pricing/`) import from `@data/contract` and render it.
 - **Discovery files** (`public/llms.txt`, `public/.well-known/mcp.json`) are written by `scripts/generate-discovery.ts`. These two files are **never hand-edited** — they are build artifacts committed to the repo, regenerated on every `dev`/`build` via the `prebuild`/`dev` hook. If you need to change them, change `contract.ts` and run `npm run generate`.
 
 Consequence: **if a fact is wrong, it is wrong once, in `contract.ts`.** Never edit `llms.txt`, `mcp.json`, or duplicate a constant (MCP endpoint, free-plan terms, tool list, prices) into a page or component — import it from `@data/contract`.
@@ -41,6 +41,19 @@ Consequence: **if a fact is wrong, it is wrong once, in `contract.ts`.** Never e
 3. **Artifact-first.** The homepage and each `/languages/[id]` page embed a *live* Graffiticode item via `src/components/Embed.tsx`, not a screenshot. When `showcaseTaskId` is `null`, `Embed` renders an honest "coming online" placeholder.
 4. **`generate-discovery.ts` must stay offline** — it runs in `prebuild` and Docker builds must be hermetic. Anything networked belongs in an on-demand script like `sync:languages`.
 
+## Positioning (what Graffiticode *is*)
+
+`POSITIONING` in `contract.ts` is the single source for the definition sentence. It mirrors `marketing/graffiticode-reason-to-be.md` §What — Graffiticode is **a platform of specialized micro-agents whose capabilities are formally defined by domain-specific languages**, the bridge between general-purpose agents and services.
+
+It exists because that sentence had previously been hand-copied into four files (`page.tsx`, `layout.tsx` metadata, `languages/page.tsx`, `generate-discovery.ts`) and drifted out of sync with marketing. **Never restate the definition inline** — import `POSITIONING` and interpolate it. A homepage copy change that doesn't move the `<title>`, OG tags, and `llms.txt` with it is the bug this prevents.
+
+Two disciplines govern anything written here, both from `marketing/marketing-corpus-consistency-plan.md`:
+
+- **Vocabulary.** A *language* (dialect) is the formal capability boundary and what a partner buys; a *micro-agent* is the generator+compiler pairing and what an agent calls; a *skill* advertises and routes but never implements; *MCP* is the access layer, not the execution model; a *smart tool* is user-facing packaging (fine in nav and `/languages`, wrong in architectural prose).
+- **Claim discipline.** No first-try-success percentage until we can publish cohort, task definition, window, and sample size — state the mechanism, not the number. No claim of being registered across the major agent registries until listings are submitted and evidenced; say the server is public, agent-reachable, and carries the machine-readable discovery files. Both rules are enforced by comment in `PRICING.included`, where they were previously violated.
+
+Artifacts are **not** the defining abstraction. A task may render one, deposit a record into a service, or return another validated result — so don't write copy that assumes every call produces something to look at (`from zero to a working result`, not `to a rendered artifact`).
+
 ## Pricing
 
 `PRICING` in `contract.ts` drives `/pricing`. Structure: one shared `plans` ladder (Bronze / Silver / Gold / Platinum) plus `audiences.agent` and `audiences.partner`, switched by a client-side toggle in `src/app/pricing/PricingView.tsx`.
@@ -53,6 +66,22 @@ Three rules specific to this data:
 - The public page may only show what the contract carries. Internal economics (margins, break-even, the pricing calculator) are deliberately **not** projected here.
 - The plan facts mirror the external `marketing/artcompiler-price-sheet.md` (which still says "clients"). Keep the two in sync when either changes.
 - `languageService.terms` are a **public commitment**, not marketing copy — unlimited requests, one worked at a time, pause or cancel any month. Don't add a turnaround figure unless it's one we can hold to.
+
+## Partners
+
+`PARTNERS` in `contract.ts` drives `/partners` — the one page addressed to product companies rather than agents. It carries prose, not facts: `qualifies` / `exchange` / `path` are `PricingSection`s (heading + lead + items) rendered as cards, and `session` is deliberately prose-only. The engagement it describes is the same Platinum tier `/pricing` sells, so the two must agree — what a partner gets is stated in `PRICING.languageService`, not re-asserted here.
+
+What the partner story sells is a **standing monthly engagement**, entered through a working session — not a fixed-scope proposal or a scoped build. Don't introduce statement-of-work, milestone, or deliverable-date language into `PARTNERS`.
+
+### Every link into /pricing names its audience
+
+`/pricing` has two tabs and there is **no bare `/pricing` link on the site**. The rule spans three files, so changing one alone breaks it:
+
+- `src/lib/nav.ts` — `navHref(href, pathname)` is what nav items call; only `/pricing` is path-dependent. `pricingAudience()` maps the current path to a tab (`partnerPages` is the exception list; agent is the default).
+- `src/app/pricing/PricingView.tsx` — reads `?audience=` from `window.location` on mount, and writes the param back with `history.replaceState` whenever the toggle changes, so the URL always states what the reader is looking at. It reads `window` rather than `useSearchParams` on purpose: the latter needs a Suspense boundary whose fallback would blank the page.
+- `contract.ts` — CTAs that cross into pricing (e.g. `PARTNERS.cta.secondary`) hardcode `?audience=partner`.
+
+`?audience=agent` is written explicitly rather than dropped as redundant, so both tabs behave identically and any shared link is unambiguous.
 
 ## Showcase items (live embeds)
 
@@ -68,6 +97,7 @@ To wire one up: create a real item via the MCP server's `create_item`, then drop
 - **Analytics**: `track()` in `src/lib/analytics.ts` wraps Plausible custom events and is a no-op unless `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` is set. Used only for top-of-funnel events (CTA clicks, config copies); deeper funnel instrumentation lives in the MCP server/console, not here.
 - `src/middleware.ts` 308-redirects alternate hosts (`www.graffiticode.org`, `graffiticode.com`, `www.graffiticode.com`) to the apex, on every path except `_next/` — so discovery files redirect too.
 - `SITE_URL` env var drives absolute URLs in discovery files, robots, and sitemap (defaults to `https://graffiticode.org`). It is a Docker build arg, baked in at build time.
+- Contract literals that a renderer reads fields off of are typed with `satisfies` (`satisfies PricingSection`, `satisfies PricingCta`), which preserves literal types. Consequence: an *omitted* optional field is absent from the type rather than `undefined`, so write it explicitly (`external: false`) when the JSX branches on it.
 
 ## Deploy
 
@@ -80,3 +110,5 @@ npm run gcp:logs    # read service logs
 ```
 
 `cloudbuild.yaml` includes the deploy step, so `gcp:build` alone ships the change.
+
+`next.config.mjs` sets `output: 'standalone'` — the Dockerfile copies `.next/standalone`, so removing it breaks the image, not just the build.

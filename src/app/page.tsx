@@ -5,7 +5,7 @@ import { Button } from '@/components/Button'
 import { CodeBlock } from '@/components/CodeBlock'
 import { Embed } from '@/components/Embed'
 import { PromptDialog } from '@/components/PromptDialog'
-import { LANGUAGES, SHOWCASE, MCP_ENDPOINT, FREE_PLAN } from '@data/contract'
+import { LANGUAGES, SHOWCASE, MCP_ENDPOINT, FREE_PLAN, POSITIONING } from '@data/contract'
 
 // Feature the charts tool in the hero when it has a live item; otherwise the first showcase.
 const preferred = LANGUAGES.find((l) => l.id === 'L0173' && l.showcaseTaskId)
@@ -33,13 +33,14 @@ const steps = [
     body: (
       <>
         Call <code className="font-mono text-brand-clay">create_item</code> with a language and a description.
-        A specialized AI compiles your intent into a validated, interactive artifact.
+        The micro-agent generates inside that language&rsquo;s boundary, and its compiler validates the
+        work before it comes back.
       </>
     ),
   },
   {
     n: '3',
-    title: 'Open it — keep it if you want',
+    title: 'Get a result — keep it if you want',
     body: (
       <>
         You get back a <code className="font-mono text-brand-clay">view_url</code> to open the result and a{' '}
@@ -58,16 +59,13 @@ export default function HomePage() {
         <Container className="grid gap-10 py-20 lg:grid-cols-2 lg:items-center lg:py-28">
           <div>
             <p className="mb-4 inline-flex rounded-full border border-brand/40 bg-brand/10 px-3 py-1 text-xs font-medium text-brand-clay">
-              Universal MCP server of smart tools
+              {POSITIONING.eyebrow}
             </p>
             <h1 className="text-4xl font-semibold tracking-tight text-sand-50 sm:text-5xl">
-              Point your agent at one endpoint — no key required — and ask for a chart.
+              {POSITIONING.headline}{' '}
+              <span className="text-brand-clay">Point it at one endpoint — no key required.</span>
             </h1>
-            <p className="mt-5 max-w-xl text-lg text-sand-300">
-              Each Graffiticode tool is a domain language wrapped by a specialized AI that knows the
-              solution space — so your agent delegates to a specialist instead of guessing, and gets back
-              a validated, interactive result.
-            </p>
+            <p className="mt-5 max-w-xl text-lg text-sand-300">{POSITIONING.mechanism}</p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Button href="/agents">Get started in 30 seconds →</Button>
               <Button href="/languages" variant="secondary">
@@ -91,7 +89,7 @@ export default function HomePage() {
       {/* Quickstart */}
       <section className="py-20">
         <Container>
-          <h2 className="text-2xl font-semibold text-sand-50">From zero to a rendered artifact</h2>
+          <h2 className="text-2xl font-semibold text-sand-50">From zero to a working result</h2>
           <p className="mt-2 max-w-2xl text-sand-400">
             No sign-up, no token to fetch. The free plan is the no-credential path.
           </p>
@@ -135,8 +133,8 @@ export default function HomePage() {
         <Container>
           <h2 className="text-2xl font-semibold text-sand-50">One server, many smart tools</h2>
           <p className="mt-2 max-w-2xl text-sand-400">
-            Each is a domain language with its own specialized AI. Call <code className="font-mono">list_languages</code>{' '}
-            for the live list.
+            Each is a micro-agent bounded by its own domain language — what it can do is defined, not
+            improvised. Call <code className="font-mono">list_languages</code> for the live list.
           </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -59,7 +59,8 @@ export default async function LanguagePage({ params }: { params: Promise<{ id: s
         <div>
           <h2 className="text-sm font-medium text-sand-400">Make one like it</h2>
           <p className="mt-2 text-sm text-sand-400">
-            Describe what you want in plain language — the specialized AI compiles it.
+            Describe what you want in plain language — the micro-agent generates it and its compiler
+            validates it.
           </p>
           <CodeBlock className="mt-3" label="create_item" language="javascript" code={call} />
 

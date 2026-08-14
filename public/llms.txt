@@ -1,11 +1,17 @@
-# Graffiticode — universal MCP server of smart tools
+# Graffiticode — the bridge between agents and services
 
 ## What This Is
 
-Graffiticode is a universal MCP server of smart tools for AI agents and the
-people who use them. Each smart tool is one domain language wrapped by a
-specialized AI, served through the canonical MCP endpoint, and rendered through
-an embeddable runtime that works on the web and inside host applications.
+Graffiticode is a platform of specialized micro-agents whose capabilities are
+formally defined by domain-specific languages — the missing bridge between
+general-purpose agents and the services they need to drive.
+
+Each micro-agent pairs a domain language that formally bounds what it can do
+with a compiler that validates the work before it comes back. Your agent
+delegates to a specialist instead of improvising against an API it has to
+guess at. A task may render an artifact such as a chart or a spreadsheet,
+deposit a record into a service, or produce another validated result — the
+language defines the capability, not one output shape.
 
 Graffiticode is 100% open source under the MIT license. Source code lives at
 https://github.com/graffiticode. Community discussion and language showcase live at https://forum.graffiticode.org.

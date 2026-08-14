@@ -35,6 +35,19 @@ export interface McpTool {
   params: { name: string; type: string; required: boolean; description: string }[]
 }
 
+export interface Positioning {
+  /** Short pill above the headline. */
+  eyebrow: string
+  /** The homepage H1's first clause. */
+  headline: string
+  /** ONE sentence: what Graffiticode is. The canonical definition. */
+  definition: string
+  /** How it works, stated structurally — never numerically. */
+  mechanism: string
+  /** Compressed form for OG tags and mcp.json, where length is tight. */
+  short: string
+}
+
 export const SITE_URL = process.env.SITE_URL?.replace(/\/$/, '') || 'https://graffiticode.org'
 
 /** The canonical MCP endpoint. Use this exact anchor everywhere. */
@@ -46,6 +59,35 @@ export const API_URL = 'https://api.graffiticode.org'
 export const CONSOLE_URL = 'https://console.graffiticode.org'
 export const FORUM_URL = 'https://forum.graffiticode.org'
 export const GITHUB_URL = 'https://github.com/graffiticode'
+
+/**
+ * THE POSITION — mirrors marketing/graffiticode-reason-to-be.md §What.
+ *
+ * Every surface that states what Graffiticode *is* reads from here: the
+ * homepage hero, the layout metadata (title + OG), /languages, and the
+ * generated discovery files. Before this existed the same sentence was
+ * hand-copied into four files and drifted; don't reintroduce a second copy.
+ *
+ * Claim discipline (marketing/marketing-corpus-consistency-plan.md): no
+ * first-try-success percentage and no registry-coverage claim may appear in
+ * this block. State the mechanism, not the outcome.
+ *
+ * Vocabulary: a *language* (dialect) is the formal capability boundary and is
+ * what a partner buys; a *micro-agent* is the generator+compiler pairing and is
+ * what an agent calls; a *smart tool* is the user-facing packaging and belongs
+ * in presentation copy only. Don't let "smart tool" stand in for "micro-agent"
+ * in architectural prose.
+ */
+export const POSITIONING = {
+  eyebrow: 'The bridge between agents and services',
+  headline: "Your agent shouldn't guess at a specialist's job.",
+  definition:
+    'Graffiticode is a platform of specialized micro-agents whose capabilities are formally defined by domain-specific languages — the missing bridge between general-purpose agents and the services they need to drive.',
+  mechanism:
+    'Each micro-agent pairs a domain language that formally bounds what it can do with a compiler that validates the work before it comes back. Your agent delegates to a specialist instead of improvising against an API it has to guess at.',
+  short:
+    'Specialized micro-agents your agent can call. One MCP endpoint, no credential required.',
+} satisfies Positioning
 
 /**
  * The free-plan access contract (mirrors marketing/free-plan-contract.md and
@@ -222,12 +264,19 @@ export const PRICING = {
     lead: 'Whatever the volume, partnering includes the full agent-accessibility surface for your product.',
     items: [
       {
+        // CLAIM DISCIPLINE: registry listings are not submitted or evidenced yet,
+        // so this may NOT say we are registered across the major registries. What
+        // is true and shippable: the server is public, agent-reachable, and carries
+        // the machine-readable discovery files agents look for.
         title: 'Immediate visibility',
-        body: 'Graffiticode is a registered MCP server across the major agent registries. Your product surfaces in agent tool discovery on day one — no registry submissions or discovery engineering on your side.',
+        body: 'Your product is live in every list_languages call the moment its micro-agent ships. Graffiticode is a public, agent-reachable MCP server carrying the machine-readable discovery files agents look for — no registry submissions or discovery engineering on your side.',
       },
       {
+        // CLAIM DISCIPLINE: first-attempt success is instrumented but unpublished.
+        // No percentage until we can publish cohort, task definition, window, and
+        // sample size. Until then the claim is structural, not numeric.
         title: 'Reliability',
-        body: '~99% first-try success on item creation. The compiler enforces valid structure, so an agent gets a working artifact instead of plausible-but-broken output — which keeps it reaching for your product.',
+        body: 'The compiler validates every result server-side before it reaches the agent, so a request either returns something that works or fails loudly enough to correct. An agent gets a working result instead of plausible-but-broken output — which keeps it reaching for your product.',
       },
       {
         title: 'Safety',

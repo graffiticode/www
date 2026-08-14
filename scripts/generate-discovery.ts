@@ -21,6 +21,7 @@ import {
   TOOLS,
   LANGUAGES,
   FREE_PLAN,
+  POSITIONING,
 } from '../data/contract.ts'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
@@ -30,14 +31,26 @@ function languageSpecUrl(id: string) {
   return `${SITE_URL}/languages/${id}`
 }
 
-const llmsTxt = `# Graffiticode — universal MCP server of smart tools
+/** Wrap interpolated contract prose to llms.txt's hand-written column width, so
+ * a long POSITIONING sentence doesn't land as one ragged line beside it. */
+function wrap(text: string, width = 78) {
+  return text.split(/\s+/).reduce((lines, word) => {
+    const last = lines[lines.length - 1]
+    if (last && `${last} ${word}`.length <= width) lines[lines.length - 1] = `${last} ${word}`
+    else lines.push(word)
+    return lines
+  }, [] as string[]).join('\n')
+}
+
+const llmsTxt = `# Graffiticode — ${POSITIONING.eyebrow.toLowerCase()}
 
 ## What This Is
 
-Graffiticode is a universal MCP server of smart tools for AI agents and the
-people who use them. Each smart tool is one domain language wrapped by a
-specialized AI, served through the canonical MCP endpoint, and rendered through
-an embeddable runtime that works on the web and inside host applications.
+${wrap(POSITIONING.definition)}
+
+${wrap(
+  `${POSITIONING.mechanism} A task may render an artifact such as a chart or a spreadsheet, deposit a record into a service, or produce another validated result — the language defines the capability, not one output shape.`,
+)}
 
 Graffiticode is 100% open source under the MIT license. Source code lives at
 ${GITHUB_URL}. Community discussion and language showcase live at ${FORUM_URL}.
@@ -94,8 +107,7 @@ AI model training.
 const mcpJson = {
   mcp_endpoint: MCP_ENDPOINT,
   site: SITE_URL,
-  description:
-    'Graffiticode is a universal MCP server of smart tools for AI agents and the people who use them. Each tool is one domain language wrapped by a specialized AI. No credential is required to try it — call the endpoint with no Authorization header (free plan).',
+  description: `${POSITIONING.definition} No credential is required to try it — call the endpoint with no Authorization header (free plan).`,
   tools: TOOLS.map((t) => t.name),
   free_plan: {
     credential_required: FREE_PLAN.credentialRequired,

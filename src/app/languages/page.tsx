@@ -7,7 +7,7 @@ import { LANGUAGES } from '@data/contract'
 export const metadata: Metadata = {
   title: 'Tools',
   description:
-    'Every Graffiticode smart tool — each a domain language with its own specialized AI, callable through the MCP server with no credential.',
+    'Every Graffiticode smart tool — each a micro-agent bounded by its own domain language, callable through the MCP server with no credential.',
 }
 
 export default function LanguagesPage() {
@@ -15,9 +15,10 @@ export default function LanguagesPage() {
     <Container className="py-16">
       <h1 className="text-3xl font-semibold tracking-tight text-sand-50">Smart tools</h1>
       <p className="mt-3 max-w-2xl text-lg text-sand-300">
-        Each tool is a domain language wrapped by a specialized AI. Open one to see a live example and the
-        exact call that makes it. Call <code className="font-mono text-brand-clay">list_languages</code> from the
-        MCP server for the authoritative live list.
+        Each tool is a micro-agent bounded by a domain language that defines exactly what it can do. Open
+        one to see a live example and the exact call that makes it. Call{' '}
+        <code className="font-mono text-brand-clay">list_languages</code> from the MCP server for the
+        authoritative live list.
       </p>
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2">

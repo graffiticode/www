@@ -1,7 +1,7 @@
 {
   "mcp_endpoint": "https://mcp.graffiticode.org/mcp",
   "site": "https://graffiticode.org",
-  "description": "Graffiticode is a universal MCP server of smart tools for AI agents and the people who use them. Each tool is one domain language wrapped by a specialized AI. No credential is required to try it — call the endpoint with no Authorization header (free plan).",
+  "description": "Graffiticode is a platform of specialized micro-agents whose capabilities are formally defined by domain-specific languages — the missing bridge between general-purpose agents and the services they need to drive. No credential is required to try it — call the endpoint with no Authorization header (free plan).",
   "tools": [
     "list_languages",
     "get_language_info",

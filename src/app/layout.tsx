@@ -3,7 +3,7 @@ import Script from 'next/script'
 
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
-import { SITE_URL, MCP_ENDPOINT } from '@data/contract'
+import { SITE_URL, MCP_ENDPOINT, POSITIONING } from '@data/contract'
 import './globals.css'
 
 const plausibleDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN
@@ -11,11 +11,12 @@ const plausibleDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Graffiticode — smart tools your agent can call',
+    default: `Graffiticode — ${POSITIONING.eyebrow.toLowerCase()}`,
     template: '%s · Graffiticode',
   },
-  description:
-    'Point your agent at the Graffiticode MCP server — no key required — and ask for a spreadsheet, a concept web, or an assessment. Each tool is a domain language wrapped by a specialized AI.',
+  // POSITIONING.definition is the canonical sentence but runs long for a SERP
+  // snippet, so the short form leads and the concrete nouns follow.
+  description: `${POSITIONING.short} Ask for a chart, a spreadsheet, a concept web, or an assessment.`,
   alternates: {
     canonical: '/',
     types: {
@@ -30,8 +31,8 @@ export const metadata: Metadata = {
     'ai-tool-endpoint': MCP_ENDPOINT,
   },
   openGraph: {
-    title: 'Graffiticode — smart tools your agent can call',
-    description: 'No key required. Point your agent at the MCP server and ask.',
+    title: `Graffiticode — ${POSITIONING.eyebrow.toLowerCase()}`,
+    description: POSITIONING.short,
     url: SITE_URL,
     siteName: 'Graffiticode',
     type: 'website',

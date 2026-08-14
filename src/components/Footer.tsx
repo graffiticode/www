@@ -1,5 +1,6 @@
+import Link from 'next/link'
+
 import { Container } from '@/components/Container'
-import { NavLink } from '@/components/NavLink'
 import { primaryNav, externalNav } from '@/lib/nav'
 import { MCP_ENDPOINT } from '@data/contract'
 
@@ -17,9 +18,9 @@ export function Footer() {
         </div>
         <nav className="flex flex-wrap gap-x-5 gap-y-2">
           {primaryNav.map((item) => (
-            <NavLink key={item.href} href={item.href} className="transition hover:text-sand-50">
+            <Link key={item.href} href={item.href} className="transition hover:text-sand-50">
               {item.title}
-            </NavLink>
+            </Link>
           ))}
           {externalNav.map((item) => (
             <a key={item.href} href={item.href} target="_blank" rel="noreferrer" className="transition hover:text-sand-50">

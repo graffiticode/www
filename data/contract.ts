@@ -72,9 +72,9 @@ export const GITHUB_URL = 'https://github.com/graffiticode'
  * first-try-success percentage and no registry-coverage claim may appear in
  * this block. State the mechanism, not the outcome.
  *
- * Vocabulary: a *language* (dialect) is the formal capability boundary and is
- * what a partner buys; a *micro-agent* is the generator+compiler pairing and is
- * what an agent calls; a *smart tool* is the user-facing packaging and belongs
+ * Vocabulary: a *language* (dialect) is the formal capability boundary; a
+ * *micro-agent* is the generator+compiler pairing and is what an agent calls;
+ * a *smart tool* is the user-facing packaging and belongs
  * in presentation copy only. Don't let "smart tool" stand in for "micro-agent"
  * in architectural prose.
  */
@@ -140,13 +140,6 @@ export interface PricingSection {
   items: PricingPrinciple[]
 }
 
-/** The language-development offer. A productized service, not a retainer:
- * unlimited requests worked one at a time from a queue the partner prioritizes. */
-export interface PricingLanguageService extends PricingSection {
-  /** Fine print, one line each. */
-  terms: string[]
-}
-
 export interface PricingLink {
   label: string
   href: string
@@ -156,34 +149,9 @@ export interface PricingLink {
 export interface PricingCta {
   title: string
   body: string
-  /** The action this audience should take. Partners are asked to talk to us;
-   * agents are asked to start free. Never hard-code either in the view. */
+  /** Never hard-code the action in the view. */
   primary: PricingLink
   secondary?: PricingLink
-}
-
-/** Per-audience framing for the pricing page. The plans/rates are shared; each
- * audience projects a subset of them and tells its own story around them. */
-export interface PricingAudience {
-  /** Toggle label + hero eyebrow, e.g. "For partners". */
-  eyebrow: string
-  title: string
-  lead: string
-  principles: PricingPrinciple[]
-  /** Which of the shared plans this audience shows, filtered out of
-   * PRICING.plans (so the ladder keeps its canonical low-to-high order). */
-  planNames: PricingPlanName[]
-  plansHeading: string
-  plansIntro: string
-  /** Optional worked example printed under the plan grid. */
-  plansFootnote?: string
-  /** Visibility only — the prose lives in PRICING.included. */
-  showIncluded: boolean
-  /** Visibility only — the prose lives in PRICING.languageService. */
-  showLanguageService: boolean
-  cta: PricingCta
-  /** Optional invoicing fine print at the foot of the page. */
-  billingNote?: string
 }
 
 /**
@@ -203,15 +171,10 @@ export interface PricingAudience {
  * break-even, the pricing calculator — are deliberately NOT projected here;
  * this file only carries what the public pricing page is allowed to show.
  *
- * Two things here are projections, not plan data:
- *   - Each audience shows a SUBSET of the ladder via `planNames`. Partners see
- *     Platinum only (it is the language-development engagement); agents see all
- *     four. The plans array itself stays a field-for-field mirror of plans-config,
- *     names included — both surfaces call the top tier Platinum.
- *   - `languageService` describes what Platinum buys. Its terms — unlimited
- *     requests, one worked at a time, pause or cancel any month — are a PUBLIC
- *     COMMITMENT, not just copy. Keep them in sync with the price sheet and the
- *     console's plan copy, and don't add a turnaround figure we can't hold to.
+ * The page is single-audience: every reader is an agent (or the developer
+ * behind one), so the whole ladder is shown to everyone and the fields below
+ * read in page order. `included` is the one standing section — its prose lives
+ * here, not in the JSX.
  */
 export const PRICING = {
   /** A "successful item" is billable; failures, reads, and iteration are free. */
@@ -252,16 +215,13 @@ export const PRICING = {
       monthlyBase: 10_000,
       includedItems: 400_000,
       additionalItem: 0.025,
-      // Note deliberately makes no cross-tier comparison: partners see this card
-      // alone, so "cheaper than Gold" would point at a tier that isn't on screen.
-      // The agent view carries the crossover math in `plansFootnote` instead.
-      note: 'The partner engagement — our lowest per-item rate at $0.025, and it includes custom language development with no additional fee.',
+      note: 'Our lowest per-item rate at $0.025, for sustained high volume — cheaper than Gold above ~200,000 items/mo.',
     },
   ] as PricingPlan[],
-  /** What the agent-accessibility surface delivers, whatever the volume. */
+  /** What every plan carries, whatever the volume. Prose lives here, not in JSX. */
   included: {
-    heading: 'Included in every engagement',
-    lead: 'Whatever the volume, partnering includes the full agent-accessibility surface for your product.',
+    heading: 'Included at every tier',
+    lead: 'The rate changes with volume. Everything below does not.',
     items: [
       {
         // CLAIM DISCIPLINE: registry listings are not submitted or evidenced yet,
@@ -269,14 +229,14 @@ export const PRICING = {
         // is true and shippable: the server is public, agent-reachable, and carries
         // the machine-readable discovery files agents look for.
         title: 'Immediate visibility',
-        body: 'Your product is live in every list_languages call the moment its micro-agent ships. Graffiticode is a public, agent-reachable MCP server carrying the machine-readable discovery files agents look for — no registry submissions or discovery engineering on your side.',
+        body: 'Graffiticode is a public, agent-reachable MCP server carrying the machine-readable discovery files agents look for. Every smart tool is live in list_languages the moment it ships — nothing to register, configure, or wire up on your side.',
       },
       {
         // CLAIM DISCIPLINE: first-attempt success is instrumented but unpublished.
         // No percentage until we can publish cohort, task definition, window, and
         // sample size. Until then the claim is structural, not numeric.
         title: 'Reliability',
-        body: 'The compiler validates every result server-side before it reaches the agent, so a request either returns something that works or fails loudly enough to correct. An agent gets a working result instead of plausible-but-broken output — which keeps it reaching for your product.',
+        body: 'The compiler validates every result server-side before it reaches your agent, so a request either returns something that works or fails loudly enough to correct. You get a working result instead of plausible-but-broken output.',
       },
       {
         title: 'Safety',
@@ -284,207 +244,38 @@ export const PRICING = {
       },
       {
         title: 'Versioning',
-        body: 'Every change is recorded and reversible. Agent-driven edits are fully auditable and safe to undo — what makes granting an agent write-access to a production product sane.',
+        body: 'Every change is recorded and reversible. Agent-driven edits are fully auditable and safe to undo — what makes handing an agent write access tolerable in the first place.',
       },
     ],
   } satisfies PricingSection,
-  /**
-   * The partner offer. Modelled on the productized-service firms that bill a
-   * flat monthly fee for a continuous stream of work: "unlimited" describes the
-   * requests and revisions, never the throughput. One request is active at a
-   * time and the partner sets the order — that limit is the whole reason the
-   * flat fee works, so it is stated plainly rather than buried as an internal cap.
-   */
-  languageService: {
-    heading: 'Custom language development',
-    lead: 'A bespoke agent surface tailored to your product — your data model, your item types, your workflows. This is the done-for-you build: we design and operate the language and skills that let agents drive your product natively, and keep them current as agent platforms evolve. It is what Platinum buys, with no separate build fee and no statement of work to negotiate.',
-    items: [
-      {
-        title: 'Unlimited requests',
-        body: 'Ask for as much as you need — a new item type, a change to the spec, a new capability, a revision to any of it. There is no request budget and no per-change quote, and revisions to the active request are unlimited.',
-      },
-      {
-        title: 'One at a time',
-        body: 'We work a single request at a time and start the next when the current one ships. That is what keeps a flat monthly fee honest: you are buying a continuous stream of work, not a promise of infinite parallel capacity.',
-      },
-      {
-        title: 'You set the priority',
-        body: 'Your queue, your order. Reorder it whenever the roadmap moves — whatever sits at the top is what we build next, and nothing needs re-scoping or re-contracting to change that.',
-      },
-    ],
-    terms: [
-      'Included at Platinum — no separate build fee.',
-      'Pause or cancel any month.',
-      'Early design-partner program: a limited number of partners on preferred terms, by invitation.',
-    ],
-  } satisfies PricingLanguageService,
-  /** Per-audience framing. The plans above are shared; each audience projects
-   * the subset named in `planNames`. */
-  audiences: {
-    partner: {
-      eyebrow: 'For partners',
-      title: 'We build the language your product speaks',
-      lead: 'You bring the product; we make it something an AI agent can drive — reliably, safely, and inside your guardrails. Partnering is one flat monthly fee that buys both: the agent-accessibility surface, and the ongoing language development that keeps it fitted to your product as it changes.',
-      principles: [
-        {
-          title: 'Development is the product',
-          body: 'The language and skills that let agents drive your product are not a one-off build we hand over. We design them, operate them, and keep revising them for as long as you are a partner.',
-        },
-        {
-          title: 'A continuous stream, not a project',
-          body: 'No statements of work, no change orders, no per-request quotes. Requests go in a queue you prioritize and we work them one at a time — so the roadmap can move without renegotiating anything.',
-        },
-        {
-          title: 'You own the customer relationship',
-          body: 'Your customers authenticate with your credentials and never see Artcompiler. Pass our fee through, bundle it, or resell agentic authoring as a premium feature.',
-        },
-      ],
-      planNames: ['Platinum'],
-      plansHeading: 'What partnering costs',
-      plansIntro: 'One tier, one flat monthly fee. It covers 400,000 successful items a month and the language development that makes them worth creating — additional items bill at the lowest per-item rate we offer.',
-      showIncluded: true,
-      showLanguageService: true,
-      cta: {
-        title: 'Talk to us about your product',
-        body: 'Partnering starts with a conversation about what your product does and what an agent would need to drive it. You can also connect an agent and create your first 50 items free, right now, to see the surface before you talk to anyone.',
-        primary: {
-          label: 'Talk to us →',
-          href: 'mailto:jeff@artcompiler.com?subject=Graffiticode%20partnership',
-          external: true,
-        },
-        secondary: { label: 'Try it free', href: '/agents' },
-      },
-      billingNote:
-        'The monthly fee is billed in advance and delivered as a single invoice, with any additional items metered to your tenant and billed in arrears. Committed-use terms are available as the engagement matures.',
+  eyebrow: 'Pricing',
+  title: 'Create with agent-driven tools',
+  lead: 'Connect an agent and start creating — no credential, no credit card. Your first 50 items each month are free; past that you pay per successful item, at a flat rate that falls as volume grows.',
+  principles: [
+    {
+      title: 'Billed per successful item',
+      body: 'A successful item is a create request that returns a compiled, valid result. If it doesn\u2019t produce something that works, you don\u2019t pay for it.',
     },
-    agent: {
-      eyebrow: 'For agents',
-      title: 'Create with agent-driven tools',
-      lead: 'Connect an agent and start creating — no credential, no credit card. Your first 50 items each month are free; past that you pay per successful item, at a flat rate that falls as volume grows.',
-      principles: [
-        {
-          title: 'Billed per successful item',
-          body: 'A successful item is a create request that returns a compiled, valid artifact. If it doesn’t produce a working result, you don’t pay for it.',
-        },
-        {
-          title: 'Free to start, capped by you',
-          body: 'Your first 50 items each month are free, and need no credit card at all. A card is required only to create additional items — and only alongside a monthly spend cap, so you can never be billed more than you chose.',
-        },
-        {
-          title: 'Iteration & reads are free',
-          body: 'Refining an item is part of creating it, not a separate charge. Reading and retrieving items is always free.',
-        },
-      ],
-      planNames: ['Bronze', 'Silver', 'Gold', 'Platinum'],
-      plansHeading: 'Plans',
-      plansIntro: 'Each paid plan is a flat per-item rate with a monthly minimum — the included bucket is priced at the same rate as additional items, so there’s no penalty for going over. Move up a plan exactly when it lowers your per-item cost. Bronze’s pay-as-you-go rate is higher by design: it’s the bridge past the first 50 items, not a way to stay below a subscription.',
-      plansFootnote:
-        'Example: 20,000 items in a month costs $1,000 on Gold ($0.05/item). At 100,000 items, still $5,000 on Gold. At 500,000 items, $12,500 on Platinum.',
-      showIncluded: false,
-      showLanguageService: false,
-      cta: {
-        title: 'Start free',
-        body: 'No credential needed — connect an agent and start creating. Your first 50 items each month are free, and nothing is billed until you add a card and set a cap yourself.',
-        primary: { label: 'Start free →', href: '/agents' },
-      },
+    {
+      title: 'Free to start, capped by you',
+      body: 'Your first 50 items each month are free, and need no credit card at all. A card is required only to create additional items — and only alongside a monthly spend cap, so you can never be billed more than you chose.',
     },
-  } satisfies Record<string, PricingAudience>,
-}
-
-/**
- * The service-partner narrative surface at /partners.
- *
- * Deliberately separate from PRICING: this is the story of who a partner is and
- * what the first step looks like, not what it costs. The page renders
- * PRICING.languageService for the Platinum terms rather than restating them, so
- * there is exactly one description of the productized service.
- *
- * The first step is a *product-specific working session* — the canonical partner
- * funnel event (marketing/graffiticode-funnel-and-omtm-contract.md). Nothing here
- * may imply a fixed-scope proposal or a scoped build; that is not what we sell.
- */
-export const PARTNERS = {
-  eyebrow: 'For partners',
-  title: 'Your product, drivable by an agent',
-  lead:
-    'Your customers are starting to work through agents instead of dashboards. The product an agent can drive is the product that gets used — and the one it can’t becomes a backend it guesses at or routes around. We make yours drivable, and keep it that way.',
-  qualifies: {
-    heading: 'Who this is for',
-    lead: 'Partnering fits an established product with something worth defending. Three traits matter more than your vertical.',
-    items: [
-      {
-        title: 'An incumbency worth defending',
-        body: 'You already have distribution, customers, and a trusted position inside other people’s platforms. That is exactly what makes an agent routing around you an existential problem rather than an academic one.',
-      },
-      {
-        title: 'A structured product surface',
-        body: 'An API, a content model, an item bank — something with real structure for an agent to drive. We do not need it to be tidy, but it has to exist.',
-      },
-      {
-        title: 'Customers already moving to agents',
-        body: 'Your authors, admins, and end users are starting to work through AI assistants. If that has not begun, the urgency is not there yet and we will say so.',
-      },
-    ],
-  } satisfies PricingSection,
-  exchange: {
-    heading: 'What each side brings',
-    lead: 'You are not buying a protocol. You are buying a designed, operated agent surface for your product.',
-    items: [
-      {
-        title: 'You bring the product',
-        body: 'The API or data model, the domain knowledge, the customer context, and a view of the workflows an agent should be able to drive. You keep the customer relationship throughout — your customers authenticate with your credentials and never see Artcompiler.',
-      },
-      {
-        title: 'We bring the language',
-        body: 'We design, operate, and keep revising the Graffiticode language and skills that make your product agent-drivable — intent-shaped tools rather than a one-to-one dump of your API, inside the permissions and guardrails you set.',
-      },
-    ],
-  } satisfies PricingSection,
-  /** The canonical first step. Prose only — no cards. */
-  session: {
-    heading: 'It starts with a working session',
-    lead: 'The first step is not a proposal. It is 30 minutes against your real product: we run a live agent at a sandbox, work through the two or three jobs you most want an agent to do, and find out what it would actually take. What comes out is a language brief — what agents should be able to do inside your product, in priority order. If the answer is that this is premature for you, that is a legitimate outcome and you will hear it from us.',
-  },
-  path: {
-    heading: 'From session to agents using it',
-    lead: 'Five steps, and only the first needs a decision from you.',
-    items: [
-      {
-        title: 'Product-specific working session',
-        body: 'A live agent against your sandbox, and an honest read on what an agent could drive today.',
-      },
-      {
-        title: 'Language brief',
-        body: 'What agents should be able to do inside your product, in the order you want it. Written down, agreed, and revisable.',
-      },
-      {
-        title: 'Engagement starts',
-        body: 'The monthly engagement begins and your request queue opens. No statement of work to negotiate first.',
-      },
-      {
-        title: 'First language live',
-        body: 'Your language is deployed and callable through the MCP endpoint agents already reach.',
-      },
-      {
-        title: 'External agents using it',
-        body: 'A real agent completes a real task inside your product. That is the moment this has worked — everything before it is progress.',
-      },
-    ],
-  } satisfies PricingSection,
+    {
+      title: 'Iteration & reads are free',
+      body: 'Refining an item is part of creating it, not a separate charge. Reading and retrieving items is always free.',
+    },
+  ] satisfies PricingPrinciple[],
+  plansHeading: 'Plans',
+  plansIntro: 'Each paid plan is a flat per-item rate with a monthly minimum — the included bucket is priced at the same rate as additional items, so there\u2019s no penalty for going over. Move up a plan exactly when it lowers your per-item cost. Bronze\u2019s pay-as-you-go rate is higher by design: it\u2019s the bridge past the first 50 items, not a way to stay below a subscription.',
+  plansFootnote:
+    'Example: 20,000 items in a month costs $1,000 on Gold ($0.05/item). At 100,000 items, still $5,000 on Gold. At 500,000 items, $12,500 on Platinum.',
   cta: {
-    title: 'Ask for a working session',
-    body: 'Tell us what your product does and what you would want an agent to be able to do with it. If it is a fit we will run the session against your sandbox; if it is not, we will tell you that instead.',
-    primary: {
-      label: 'Request a session →',
-      href: 'mailto:jeff@artcompiler.com?subject=Graffiticode%20partner%20working%20session',
-      external: true,
-    },
+    title: 'Start free',
+    body: 'No credential needed — connect an agent and start creating. Your first 50 items each month are free, and nothing is billed until you add a card and set a cap yourself.',
     // `external: false` is explicit so the renderer can read `.external` off the
-    // literal — `satisfies` preserves literal types, so an omitted optional is
+    // literal \u2014 `satisfies` preserves literal types, so an omitted optional is
     // absent from the type, not undefined.
-    // ?audience=partner opens /pricing on the partner tab rather than the
-    // agent default — PricingView reads it on mount.
-    secondary: { label: 'What partnering costs', href: '/pricing?audience=partner', external: false },
+    primary: { label: 'Start free \u2192', href: '/agents', external: false },
   } satisfies PricingCta,
 }
 

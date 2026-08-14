@@ -1,7 +1,6 @@
 import Link from 'next/link'
 
 import { Container } from '@/components/Container'
-import { NavLink } from '@/components/NavLink'
 import { primaryNav, externalNav } from '@/lib/nav'
 import { CONSOLE_URL } from '@data/contract'
 
@@ -21,9 +20,9 @@ export function Header() {
 
         <nav className="hidden items-center gap-6 text-sm text-sand-300 md:flex">
           {primaryNav.map((item) => (
-            <NavLink key={item.href} href={item.href} className="transition hover:text-white">
+            <Link key={item.href} href={item.href} className="transition hover:text-white">
               {item.title}
-            </NavLink>
+            </Link>
           ))}
         </nav>
 

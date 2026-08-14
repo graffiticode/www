@@ -1,10 +1,6 @@
-'use client'
-
-import { useEffect, useState } from 'react'
-
 import { Container } from '@/components/Container'
 import { Button } from '@/components/Button'
-import { PRICING, type PricingAudience, type PricingPlan } from '@data/contract'
+import { PRICING, type PricingPlan } from '@data/contract'
 
 const usd = (n: number) => `$${n.toLocaleString('en-US')}`
 const perItem = (n: number) =>
@@ -64,106 +60,40 @@ function PlanCard({ plan }: { plan: PricingPlan }) {
   )
 }
 
-type AudienceKey = keyof typeof PRICING.audiences
-
-const AUDIENCE_ORDER: AudienceKey[] = ['agent', 'partner']
-
 /**
- * Rendered when the URL carries no `?audience=`. Every link on this site names
- * one, so a bare /pricing only arrives from outside — a typed URL, a search
- * result, an old share.
+ * One audience, one view. This was a client component while the page carried an
+ * agent/partner toggle; with the partner story gone there is no state, no
+ * `?audience=` param to read, and nothing to keep in the URL — so it renders on
+ * the server and the whole page stays static.
  */
-const DEFAULT_AUDIENCE: AudienceKey = 'agent'
-
-const isAudienceKey = (v: string | null): v is AudienceKey =>
-  v !== null && Object.prototype.hasOwnProperty.call(PRICING.audiences, v)
-
 export function PricingView() {
-  const [audience, setAudience] = useState<AudienceKey>(DEFAULT_AUDIENCE)
+  return (
+    <Container className="py-16">
+      {/* Hero */}
+      <p className="text-sm font-medium text-brand-clay">{PRICING.eyebrow}</p>
+      <h1 className="mt-2 text-3xl font-semibold tracking-tight text-sand-50">{PRICING.title}</h1>
+      <p className="mt-4 max-w-2xl text-lg text-sand-300">{PRICING.lead}</p>
 
-  // `/pricing?audience=partner` opens on the partner tab — the link the
-  // /partners page uses. Read from window rather than useSearchParams: the
-  // latter would need a Suspense boundary, whose fallback becomes the
-  // prerendered HTML, and this page's static content is worth keeping.
-  // Keep the URL in step with the visible tab, so copying the address shares
-  // what the reader is actually looking at. Both audiences write an explicit
-  // param — `?audience=agent` is not dropped as redundant, so the two tabs
-  // behave identically and a shared link always states its audience.
-  // replaceState, not the router: a tab switch is not a navigation and
-  // shouldn't cost a Back press.
-  function choose(key: AudienceKey) {
-    setAudience(key)
-    const url = new URL(window.location.href)
-    if (url.searchParams.get('audience') === key) return
-    url.searchParams.set('audience', key)
-    window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`)
-  }
-
-  useEffect(() => {
-    const requested = new URLSearchParams(window.location.search).get('audience')
-    if (isAudienceKey(requested)) setAudience(requested)
-  }, [])
-  const view: PricingAudience = PRICING.audiences[audience]
-  // Ordering only — every piece of *content* is driven by contract fields.
-  const isPartner = audience === 'partner'
-
-  // Filter the shared ladder rather than mapping over planNames, so the
-  // contract's low-to-high order stays authoritative.
-  const plans = PRICING.plans.filter((p) => view.planNames.includes(p.name))
-  const single = plans.length === 1
-
-  const plansSection = (
-    <>
-      <H2>{view.plansHeading}</H2>
-      <p className="mt-2 max-w-2xl text-sand-400">{view.plansIntro}</p>
-
-      {single ? (
-        // One card would stretch across a 4-up grid; pair it with what it buys
-        // so the row reads as a single full-width band.
-        <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,20rem)_1fr] lg:items-start">
-          <PlanCard plan={plans[0]} />
-          <div className="rounded-xl border border-white/10 bg-zinc-900/40 p-6">
-            <h3 className="font-medium text-sand-50">Included with {plans[0].name}</h3>
-            <ul className="mt-3 space-y-2 text-sm text-sand-400">
-              {PRICING.languageService.terms.map((t) => (
-                <li key={t} className="flex gap-2">
-                  <span aria-hidden className="text-brand-clay">
-                    —
-                  </span>
-                  <span>{t}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      ) : (
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {plans.map((plan) => (
-            <PlanCard key={plan.name} plan={plan} />
-          ))}
-        </div>
-      )}
-
-      {view.plansFootnote && (
-        <p className="mt-6 max-w-2xl text-sm text-sand-500">{view.plansFootnote}</p>
-      )}
-    </>
-  )
-
-  const languageSection = view.showLanguageService && (
-    <>
-      <H2>{PRICING.languageService.heading}</H2>
-      <p className="mt-2 max-w-3xl text-sand-400">{PRICING.languageService.lead}</p>
-      <div className="mt-8 grid gap-6 lg:grid-cols-3">
-        {PRICING.languageService.items.map((f) => (
-          <Card key={f.title} title={f.title} body={f.body} />
+      {/* Principles */}
+      <div className="mt-10 grid gap-6 lg:grid-cols-3">
+        {PRICING.principles.map((p) => (
+          <Card key={p.title} title={p.title} body={p.body} />
         ))}
       </div>
-    </>
-  )
 
-  const includedSection = view.showIncluded && (
-    <>
+      {/* Plans — the full ladder, in the contract's canonical low-to-high order. */}
+      <H2>{PRICING.plansHeading}</H2>
+      <p className="mt-2 max-w-2xl text-sand-400">{PRICING.plansIntro}</p>
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {PRICING.plans.map((plan) => (
+          <PlanCard key={plan.name} plan={plan} />
+        ))}
+      </div>
+      {PRICING.plansFootnote && (
+        <p className="mt-6 max-w-2xl text-sm text-sand-500">{PRICING.plansFootnote}</p>
+      )}
+
+      {/* What every tier carries */}
       <H2>{PRICING.included.heading}</H2>
       <p className="mt-2 max-w-2xl text-sand-400">{PRICING.included.lead}</p>
       <div className="mt-8 grid gap-6 sm:grid-cols-2">
@@ -174,80 +104,20 @@ export function PricingView() {
           </div>
         ))}
       </div>
-    </>
-  )
-
-  return (
-    <Container className="py-16">
-      {/* Audience toggle */}
-      <div className="inline-flex rounded-lg border border-white/15 p-1 text-sm">
-        {AUDIENCE_ORDER.map((key) => (
-          <button
-            key={key}
-            type="button"
-            onClick={() => choose(key)}
-            aria-pressed={audience === key}
-            className={`rounded-md px-3 py-1.5 font-medium transition ${
-              audience === key
-                ? 'bg-brand-deep text-white'
-                : 'text-sand-300 hover:bg-white/5'
-            }`}
-          >
-            {PRICING.audiences[key].eyebrow}
-          </button>
-        ))}
-      </div>
-
-      {/* Hero */}
-      <p className="mt-8 text-sm font-medium text-brand-clay">{view.eyebrow}</p>
-      <h1 className="mt-2 text-3xl font-semibold tracking-tight text-sand-50">{view.title}</h1>
-      <p className="mt-4 max-w-2xl text-lg text-sand-300">{view.lead}</p>
-
-      {/* Principles */}
-      <div className="mt-10 grid gap-6 lg:grid-cols-3">
-        {view.principles.map((p) => (
-          <Card key={p.title} title={p.title} body={p.body} />
-        ))}
-      </div>
-
-      {/* Partners lead with the service; agents lead with the price ladder. */}
-      {isPartner ? (
-        <>
-          {languageSection}
-          {plansSection}
-          {includedSection}
-        </>
-      ) : (
-        <>
-          {plansSection}
-          {includedSection}
-          {languageSection}
-        </>
-      )}
 
       {/* CTA */}
       <div className="mt-14 rounded-xl border border-white/10 bg-zinc-900/50 p-6">
-        <h2 className="text-lg font-semibold text-sand-50">{view.cta.title}</h2>
-        <p className="mt-1 max-w-xl text-sm text-sand-400">{view.cta.body}</p>
+        <h2 className="text-lg font-semibold text-sand-50">{PRICING.cta.title}</h2>
+        <p className="mt-1 max-w-xl text-sm text-sand-400">{PRICING.cta.body}</p>
+        {/* One CTA: the contract carries no `secondary` now that the partner
+            "What partnering costs" link is gone. Re-add the branch here if one
+            is ever added back to PRICING.cta. */}
         <div className="mt-4 flex flex-wrap gap-3">
-          <Button href={view.cta.primary.href} external={view.cta.primary.external}>
-            {view.cta.primary.label}
+          <Button href={PRICING.cta.primary.href} external={PRICING.cta.primary.external}>
+            {PRICING.cta.primary.label}
           </Button>
-          {view.cta.secondary && (
-            <Button
-              href={view.cta.secondary.href}
-              variant="secondary"
-              external={view.cta.secondary.external}
-            >
-              {view.cta.secondary.label}
-            </Button>
-          )}
         </div>
       </div>
-
-      {view.billingNote && (
-        <p className="mt-8 max-w-2xl text-xs text-sand-500">{view.billingNote}</p>
-      )}
     </Container>
   )
 }

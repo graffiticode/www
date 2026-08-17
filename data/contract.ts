@@ -187,35 +187,35 @@ export const PRICING = {
       name: 'Bronze',
       listPrice: 10,
       monthlyBase: 0,
-      includedItems: 50,
-      // DELIBERATELY dearer per item than Silver's $0.10. Pay-as-you-go is the
-      // bridge past the 50-item wall, not a cheaper substitute for a
+      includedItems: 25,
+      // DELIBERATELY dearer per item than Silver's $0.20. Pay-as-you-go is the
+      // bridge past the 25-item wall, not a cheaper substitute for a
       // subscription. If the page ever shows a per-item ladder, this inversion
       // is intentional — do not "correct" it.
-      additionalItem: 0.2,
+      additionalItem: 0.4,
       free: true,
-      note: 'The on-ramp — the first 50 items each month are free, with no credit card. A card is required only to create additional items, along with a monthly spend cap; move to Silver when volume makes the flat rate cheaper.',
+      note: 'The on-ramp — the first 25 items each month are free, with no credit card. A card is required only to create additional items, along with a monthly spend cap; move to Silver when volume makes the flat rate cheaper.',
     },
     {
       name: 'Silver',
       monthlyBase: 100,
-      includedItems: 1_000,
-      additionalItem: 0.1,
-      note: 'Flat $0.10/item with a $100 monthly minimum.',
+      includedItems: 500,
+      additionalItem: 0.2,
+      note: 'Flat $0.20/item with a $100 monthly minimum.',
     },
     {
       name: 'Gold',
       monthlyBase: 1_000,
-      includedItems: 20_000,
-      additionalItem: 0.05,
-      note: 'Cheaper than Silver above ~10,000 items/mo — $0.05/item.',
+      includedItems: 10_000,
+      additionalItem: 0.1,
+      note: 'Cheaper than Silver above ~5,000 items/mo — $0.10/item.',
     },
     {
       name: 'Platinum',
       monthlyBase: 10_000,
-      includedItems: 400_000,
-      additionalItem: 0.025,
-      note: 'Our lowest per-item rate at $0.025, for sustained high volume — cheaper than Gold above ~200,000 items/mo.',
+      includedItems: 200_000,
+      additionalItem: 0.05,
+      note: 'Our lowest per-item rate at $0.05, for sustained high volume — cheaper than Gold above ~100,000 items/mo.',
     },
   ] as PricingPlan[],
   /** What every plan carries, whatever the volume. Prose lives here, not in JSX. */
@@ -250,7 +250,7 @@ export const PRICING = {
   } satisfies PricingSection,
   eyebrow: 'Pricing',
   title: 'Create with agent-driven tools',
-  lead: 'Connect an agent and start creating — no credential, no credit card. Your first 50 items each month are free; past that you pay per successful item, at a flat rate that falls as volume grows.',
+  lead: 'Connect an agent and start creating — no credential, no credit card. Your first 25 items each month are free; past that you pay per successful item, at a flat rate that falls as volume grows.',
   principles: [
     {
       title: 'Billed per successful item',
@@ -258,7 +258,7 @@ export const PRICING = {
     },
     {
       title: 'Free to start, capped by you',
-      body: 'Your first 50 items each month are free, and need no credit card at all. A card is required only to create additional items — and only alongside a monthly spend cap, so you can never be billed more than you chose.',
+      body: 'Your first 25 items each month are free, and need no credit card at all. A card is required only to create additional items — and only alongside a monthly spend cap, so you can never be billed more than you chose.',
     },
     {
       title: 'Iteration & reads are free',
@@ -266,12 +266,12 @@ export const PRICING = {
     },
   ] satisfies PricingPrinciple[],
   plansHeading: 'Plans',
-  plansIntro: 'Each paid plan is a flat per-item rate with a monthly minimum — the included bucket is priced at the same rate as additional items, so there\u2019s no penalty for going over. Move up a plan exactly when it lowers your per-item cost. Bronze\u2019s pay-as-you-go rate is higher by design: it\u2019s the bridge past the first 50 items, not a way to stay below a subscription.',
+  plansIntro: 'Each paid plan is a flat per-item rate with a monthly minimum — the included bucket is priced at the same rate as additional items, so there\u2019s no penalty for going over. Move up a plan exactly when it lowers your per-item cost. Bronze\u2019s pay-as-you-go rate is higher by design: it\u2019s the bridge past the first 25 items, not a way to stay below a subscription.',
   plansFootnote:
-    'Example: 20,000 items in a month costs $1,000 on Gold ($0.05/item). At 100,000 items, still $5,000 on Gold. At 500,000 items, $12,500 on Platinum.',
+    'Example: 10,000 items in a month costs $1,000 on Gold ($0.10/item). At 50,000 items, still $5,000 on Gold. At 250,000 items, $12,500 on Platinum.',
   cta: {
     title: 'Start free',
-    body: 'No credential needed — connect an agent and start creating. Your first 50 items each month are free, and nothing is billed until you add a card and set a cap yourself.',
+    body: 'No credential needed — connect an agent and start creating. Your first 25 items each month are free, and nothing is billed until you add a card and set a cap yourself.',
     // `external: false` is explicit so the renderer can read `.external` off the
     // literal \u2014 `satisfies` preserves literal types, so an omitted optional is
     // absent from the type, not undefined.
